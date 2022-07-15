@@ -16,7 +16,8 @@ public class MenuNavigator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        lastSelected = startScreen.transform.Find("Play").GetComponent<Button>();
+        GoToMain();
+
         _es = EventSystem.current;
     }
 
@@ -25,8 +26,7 @@ public class MenuNavigator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            creditsScreen.SetActive(false);
-            startScreen.SetActive(true);
+            GoToMain();
         }
 
         if (!_es.currentSelectedGameObject)
@@ -42,6 +42,13 @@ public class MenuNavigator : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
+    public void Credits()
+    {
+        startScreen.SetActive(false);
+        creditsScreen.SetActive(true);
+        creditsScreen.transform.Find("Back").GetComponent<Button>().Select();
+    }
+
     public void Quit()
     {
 #if UNITY_EDITOR
@@ -49,5 +56,13 @@ public class MenuNavigator : MonoBehaviour
 #endif
 
         Application.Quit();
+    }
+
+    public void GoToMain()
+    {
+        creditsScreen.SetActive(false);
+        startScreen.SetActive(true);
+
+        startScreen.transform.Find("Play").GetComponent<Button>().Select();
     }
 }
