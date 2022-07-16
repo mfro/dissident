@@ -41,21 +41,6 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Body
+  - name: HumanPortrait
     uniqueID: 206051257
-    locked: 0
-  - name: Head
-    uniqueID: 2466345773
-    locked: 0
-  - name: Mouth
-    uniqueID: 1576294697
-    locked: 0
-  - name: Nose
-    uniqueID: 100768503
-    locked: 0
-  - name: Eyes
-    uniqueID: 2851732205
-    locked: 0
-  - name: Hat
-    uniqueID: 4039507429
     locked: 0
