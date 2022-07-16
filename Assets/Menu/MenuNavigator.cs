@@ -7,10 +7,11 @@ using UnityEngine.UI;
 
 public class MenuNavigator : MonoBehaviour
 {
-    public GameObject startScreen;
+    public GameObject mainScreen;
+    public GameObject tutorialScreen;
     public GameObject creditsScreen;
 
-    public Button lastSelected;
+    Button lastSelected;
     EventSystem _es;
 
     // Start is called before the first frame update
@@ -42,11 +43,18 @@ public class MenuNavigator : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void Credits()
+    public void GoToCredits()
     {
-        startScreen.SetActive(false);
+        mainScreen.SetActive(false);
         creditsScreen.SetActive(true);
         creditsScreen.transform.Find("Back").GetComponent<Button>().Select();
+    }
+
+    public void GoToTutorial()
+    {
+        mainScreen.SetActive(false);
+        tutorialScreen.SetActive(true);
+        tutorialScreen.transform.Find("Back").GetComponent<Button>().Select();
     }
 
     public void Quit()
@@ -60,9 +68,10 @@ public class MenuNavigator : MonoBehaviour
 
     public void GoToMain()
     {
+        tutorialScreen.SetActive(false);
         creditsScreen.SetActive(false);
-        startScreen.SetActive(true);
+        mainScreen.SetActive(true);
 
-        startScreen.transform.Find("Play").GetComponent<Button>().Select();
+        mainScreen.transform.Find("Play").GetComponent<Button>().Select();
     }
 }
