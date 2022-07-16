@@ -45,3 +45,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   visibleMouse: 1
+  maleNameFile: {fileID: 4900000, guid: 849861ced957c19408e059ff194c771b, type: 3}
+  femaleNameFile: {fileID: 4900000, guid: dcd64c809ad749f4995d95c591dd9eb6, type: 3}
+  lastNameFile: {fileID: 4900000, guid: 6aa7efc8eff923c4eb1d5d00e68c298e, type: 3}

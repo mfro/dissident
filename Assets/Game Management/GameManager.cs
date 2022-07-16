@@ -5,12 +5,26 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-  public static GameObject[] CardPrefabs;
+    public static GameObject[] CardPrefabs;
 
-  public static GameManager gm;
-  public bool visibleMouse = true;
+    public static GameManager gm;
+    public bool visibleMouse = true;
 
-  void Awake()
+    [SerializeField]
+    TextAsset maleNameFile;
+    [SerializeField]
+    TextAsset femaleNameFile;
+    [SerializeField]
+    TextAsset lastNameFile;
+
+    [HideInInspector]
+    public string[] maleNames;
+    [HideInInspector]
+    public string[] femaleNames;
+    [HideInInspector]
+    public string[] lastNames;
+
+    void Awake()
   {
     if (gm == null)
     {
@@ -28,7 +42,19 @@ public class GameManager : MonoBehaviour
     CardPrefabs = Resources.LoadAll<GameObject>("Cards");
   }
 
-  public Card MakeCard(string name, GameObject parent)
+    void Start()
+    {
+        maleNames = ParseFile(maleNameFile);
+        femaleNames = ParseFile(femaleNameFile);
+        lastNames = ParseFile(lastNameFile);
+    }
+
+    private string[] ParseFile(TextAsset file)
+    {
+        return file.text.Split('\n');
+    }
+
+    public Card MakeCard(string name, GameObject parent)
   {
     var prefab = CardPrefabs.First(o => o.name == name);
     var instance = Instantiate(prefab, parent.transform);

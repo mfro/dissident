@@ -8,9 +8,6 @@ public class HumanAssemblerAssembler : MonoBehaviour
     public GameObject femalePrefab;
     public PixelText nameObject;
 
-    public string maleNameFile;
-    public string femaleNameFile;
-
     bool male;
     string myName;
 
@@ -25,6 +22,8 @@ public class HumanAssemblerAssembler : MonoBehaviour
 
     string GenerateName()
     {
-        return "Jeffrey Epstein";
+        string[] firstNames = male ? GameManager.gm.maleNames : GameManager.gm.femaleNames;
+        string[] lastNames = GameManager.gm.lastNames;
+        return firstNames[Random.Range(0, firstNames.Length)] + lastNames[Random.Range(0, lastNames.Length)];
     }
 }
