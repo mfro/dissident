@@ -30,11 +30,13 @@ public class GameManager : MonoBehaviour
 
   public Card MakeCard(string name, GameObject parent)
   {
-    var prefab = CardPrefabs.First(o => o.name == name);
+    var prefab = CardPrefabs.FirstOrDefault(o => o.name == name);
+    if (prefab == null) {
+      throw new KeyNotFoundException($"no card: {name}");
+    }
+
     var instance = Instantiate(prefab, parent.transform);
-
     instance.name = prefab.name;
-
     return instance.GetComponent<Card>();
   }
 }

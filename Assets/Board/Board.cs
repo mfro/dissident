@@ -4,11 +4,20 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
+public enum StepState
+{
+  Waiting,
+  Doing,
+  Done,
+}
+
 public class Board : MonoBehaviour
 {
   public int Width;
   public int LineLength;
   public int CheckpointLength;
+
+  public float LineDelay;
 
   public Vector2 GridCellSize;
 
@@ -18,22 +27,20 @@ public class Board : MonoBehaviour
   {
     cards = new Card[Width, LineLength + CheckpointLength];
 
-    // cards[0, 0] = MakeCard("human guard");
-
-    // cards[2, 2] = MakeCard("passport");
-    // cards[3, 3] = MakeCard("fake passport");
-
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
     {
       for (int x = 0; x < Width; ++x)
       {
-        if (y == 0)
+        if (y < CheckpointLength)
         {
+          if (Random.value > 0.25f) continue;
           cards[x, y] = GameManager.gm.MakeCard("human guard", gameObject);
+          cards[x, y].facing = y == 0 ? CardDirection.Right : CardDirection.Left;
         }
         else
         {
-          var name = Random.value > 0.5f ? "passport" : "fake passport";
+          if (Random.value > 0.4f) continue;
+          var name = PickCitizenCard();
           cards[x, y] = GameManager.gm.MakeCard(name, gameObject);
         }
 
@@ -48,13 +55,13 @@ public class Board : MonoBehaviour
   {
     if (Input.GetKeyDown(KeyCode.Space))
     {
-      StepAllCards();
+      ResolveStep();
     }
   }
 
-  void StepAllCards()
+  void ResolveStep()
   {
-    var done = new bool[Width, LineLength + CheckpointLength];
+    var done = new StepState[Width, LineLength + CheckpointLength];
 
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
     {
@@ -63,40 +70,78 @@ public class Board : MonoBehaviour
         ResolveStep(done, x, y);
       }
     }
+
+
+    for (int x = 0; x < Width; ++x)
+    {
+      if (cards[x, LineLength + CheckpointLength - 1])
+      {
+        return;
+      }
+    }
+
+    for (int x = 0; x < Width; ++x)
+    {
+      GenerateCard(x);
+    }
   }
 
-  void ResolveStep(bool[,] done, int x, int y)
+  string PickCitizenCard()
   {
-    if (done[x, y]) return;
-    done[x, y] = true;
+    var names = new string[] { "passport", "id", "luggage", "fingerprints" };
+
+    var name = names[Random.Range(0, names.Length)];
+    var fake = Random.value > 0.6f;
+
+    return $"document {name}{(fake ? " fake" : "")}";
+  }
+
+  async void GenerateCard(int x)
+  {
+    if (Random.value > 0.4f) return;
+    var name = PickCitizenCard();
+    cards[x, LineLength + CheckpointLength - 1] = GameManager.gm.MakeCard(name, gameObject);
+
+    await UpdatePosition(cards[x, LineLength + CheckpointLength - 1], Width, LineLength + CheckpointLength, 9 - x, false);
+    await Util.Seconds(0.1f * LineLength);
+    await UpdatePosition(cards[x, LineLength + CheckpointLength - 1], Width, LineLength + CheckpointLength - 1, 9 - x, true);
+    await UpdatePosition(cards[x, LineLength + CheckpointLength - 1], x, LineLength + CheckpointLength - 1, 0, true);
+  }
+
+  void ResolveStep(StepState[,] done, int x, int y)
+  {
+    if (done[x, y] != StepState.Waiting) return;
 
     var card = cards[x, y];
-    if (!card) return;
+    if (!card)
+    {
+      done[x, y] = StepState.Done;
+      return;
+    }
+
+    done[x, y] = StepState.Doing;
 
     if (card.Has(CardTrait.Patrol))
     {
-      if (card.facing)
+      var dir = Card.GetValue(card.facing);
+      var wasDone = Clip(x + dir.x, y + dir.y) ? done[x + dir.x, y + dir.y] : StepState.Waiting;
+
+      if (y + dir.y >= CheckpointLength || !ResolveMove(done, x, y, card, x + dir.x, y + dir.y))
       {
-        if (x + 1 == Width)
+        if (Clip(x + dir.x, y + dir.y))
+          done[x + dir.x, y + dir.y] = wasDone;
+
+        Vector2Int next;
+
+        while (true)
         {
-          card.facing = !card.facing;
-          ResolveMove(done, x, y, card, x - 1, y);
-        }
-        else
-        {
-          ResolveMove(done, x, y, card, x + 1, y);
-        }
-      }
-      else
-      {
-        if (x == 0)
-        {
-          card.facing = !card.facing;
-          ResolveMove(done, x, y, card, x + 1, y);
-        }
-        else
-        {
-          ResolveMove(done, x, y, card, x - 1, y);
+          card.facing = Card.NextClockwise(card.facing);
+          next = Card.GetValue(card.facing);
+          if (Clip(x + next.x, y + next.y) && y + next.y < CheckpointLength)
+          {
+            ResolveMove(done, x, y, card, x + next.x, y + next.y);
+            break;
+          }
         }
       }
     }
@@ -117,38 +162,58 @@ public class Board : MonoBehaviour
     }
     else
     {
-      Destroy(card.gameObject);
+      DestroyCard(x, y, card, x, -1);
     }
+
+    done[x, y] = StepState.Done;
   }
 
-  void ResolveMove(bool[,] done, int fromX, int fromY, Card card, int toX, int toY)
+  bool Clip(int x, int y)
   {
+    return x >= 0 && x < Width && y >= 0 && y < LineLength + CheckpointLength;
+  }
+
+  bool ResolveMove(StepState[,] done, int fromX, int fromY, Card card, int toX, int toY)
+  {
+    if (toX < 0 || toX >= Width || toY < 0 || toY >= LineLength + CheckpointLength)
+      return false;
+
+    Debug.Log($"{fromX} {fromY} -> {toX} {toY} {done[toX, toY]}");
+
+    if (done[toX, toY] == StepState.Doing)
+      return false;
+
     ResolveStep(done, toX, toY);
 
     var collision = cards[toX, toY];
     if (collision)
     {
-      ResolveCollision(fromX, fromY, collision, toX, toY, card);
+      return ResolveCollision(fromX, fromY, card, toX, toY, collision);
     }
     else
     {
       MoveCard(fromX, fromY, card, toX, toY);
+      return true;
     }
   }
 
-  void ResolveCollision(int fromX, int fromY, Card enter, int toX, int toY, Card stand)
+  bool ResolveCollision(int fromX, int fromY, Card enter, int toX, int toY, Card stand)
   {
     Debug.Log($"collide {enter.name} into {stand.name}");
 
     if (enter.Has(CardTrait.Document) && stand.Has(CardTrait.Police))
     {
       DestroyCard(fromX, fromY, enter, toX, toY);
+      return true;
     }
     else if (enter.Has(CardTrait.Police) && stand.Has(CardTrait.Document))
     {
       DestroyCard(toX, toY, stand, toX, toY);
       MoveCard(fromX, fromY, enter, toX, toY);
+      return true;
     }
+
+    return false;
   }
 
   async void MoveCard(int fromX, int fromY, Card card, int toX, int toY)
@@ -156,7 +221,10 @@ public class Board : MonoBehaviour
     cards[fromX, fromY] = null;
     cards[toX, toY] = card;
 
-    await Util.Seconds(0.1f * fromY);
+    if (fromY > CheckpointLength)
+    {
+      await Util.Seconds(LineDelay * (fromY - CheckpointLength));
+    }
 
     await UpdatePosition(card, toX, toY, 0, true);
   }
@@ -166,7 +234,7 @@ public class Board : MonoBehaviour
     var to = new Vector3(
       (-(Width - 1) / 2f + x) * GridCellSize.x,
       ((LineLength + CheckpointLength - 1) / 2f - y) * GridCellSize.y,
-      z
+      y * 10 + z
     );
 
     if (animate)

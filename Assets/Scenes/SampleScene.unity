@@ -316,10 +316,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3194892384885347389, guid: 356662b0957a8c744887f3a295372d57, type: 3}
-      propertyPath: CardSpacing
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3194892384885347389, guid: 356662b0957a8c744887f3a295372d57, type: 3}
       propertyPath: InitialCards.Array.size
       value: 4
       objectReference: {fileID: 0}

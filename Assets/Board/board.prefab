@@ -46,5 +46,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Width: 5
   LineLength: 4
-  CheckpointLength: 1
+  CheckpointLength: 2
+  LineDelay: 0.2
   GridCellSize: {x: 2, y: 2}

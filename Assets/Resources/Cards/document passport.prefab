@@ -14,7 +14,7 @@ PrefabInstance:
     - target: {fileID: 2911932555360125915, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 21300000, guid: 5f86a7a4afae17c44acbe74e5e0da3ca, type: 3}
+      objectReference: {fileID: 21300000, guid: 8d45ace1fce3bc94882a4386822b6289, type: 3}
     - target: {fileID: 2911932555635942920, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -61,7 +61,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2911932555635942921, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: m_Name
-      value: fake passport
+      value: document passport
       objectReference: {fileID: 0}
     - target: {fileID: 5390733618939984451, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: traits.Array.size
