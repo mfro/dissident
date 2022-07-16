@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,6 +10,9 @@ public class GameManager : MonoBehaviour
 
     public static GameManager gm;
     public bool visibleMouse = true;
+
+    [Range(0f, 1f)]
+    public float masterVolume = 0.5f;
 
     [SerializeField]
     TextAsset maleNameFile;
@@ -49,6 +53,11 @@ public class GameManager : MonoBehaviour
         lastNames = ParseFile(lastNameFile);
     }
 
+    private void Update()
+    {
+        AudioListener.volume = masterVolume;
+    }
+
     private string[] ParseFile(TextAsset file)
     {
         return file.text.Split('\n');
@@ -65,4 +74,9 @@ public class GameManager : MonoBehaviour
     instance.name = prefab.name;
     return instance.GetComponent<Card>();
   }
+
+    public void UpdateMasterVolume(float value)
+    {
+        AudioListener.volume = masterVolume = value;
+    }
 }

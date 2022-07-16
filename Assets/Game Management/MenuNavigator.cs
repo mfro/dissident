@@ -7,9 +7,9 @@ using UnityEngine.UI;
 
 public class MenuNavigator : MonoBehaviour
 {
-    public GameObject mainScreen;
-    public GameObject tutorialScreen;
-    public GameObject creditsScreen;
+    public GameObject mainScreen, tutorialScreen, settingsScreen, creditsScreen;
+
+    Slider masterVolumeSlider;
 
     Button lastSelected;
     EventSystem _es;
@@ -20,6 +20,9 @@ public class MenuNavigator : MonoBehaviour
         GoToMain();
 
         _es = EventSystem.current;
+
+        masterVolumeSlider = settingsScreen.GetComponentInChildren<Slider>();
+        masterVolumeSlider.value = GameManager.gm.masterVolume;
     }
 
     // Update is called once per frame
@@ -43,18 +46,33 @@ public class MenuNavigator : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void GoToCredits()
+    public void GoToMain()
     {
-        mainScreen.SetActive(false);
-        creditsScreen.SetActive(true);
-        creditsScreen.transform.Find("Back").GetComponent<Button>().Select();
+        DisableAll();
+        mainScreen.SetActive(true);
+
+        mainScreen.transform.Find("Play").GetComponent<Button>().Select();
     }
 
     public void GoToTutorial()
     {
-        mainScreen.SetActive(false);
+        DisableAll();
         tutorialScreen.SetActive(true);
         tutorialScreen.transform.Find("Back").GetComponent<Button>().Select();
+    }
+
+    public void GoToSettings()
+    {
+        DisableAll();
+        settingsScreen.SetActive(true);
+        settingsScreen.transform.Find("Back").GetComponent<Button>().Select();
+    }
+
+    public void GoToCredits()
+    {
+        DisableAll();
+        creditsScreen.SetActive(true);
+        creditsScreen.transform.Find("Back").GetComponent<Button>().Select();
     }
 
     public void Quit()
@@ -66,12 +84,16 @@ public class MenuNavigator : MonoBehaviour
         Application.Quit();
     }
 
-    public void GoToMain()
+    void DisableAll()
     {
+        mainScreen.SetActive(false);
         tutorialScreen.SetActive(false);
+        settingsScreen.SetActive(false);
         creditsScreen.SetActive(false);
-        mainScreen.SetActive(true);
+    }
 
-        mainScreen.transform.Find("Play").GetComponent<Button>().Select();
+    public void OnVolumeChanged(float value)
+    {
+        GameManager.gm.UpdateMasterVolume(value);
     }
 }
