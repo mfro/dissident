@@ -48,7 +48,7 @@ MonoBehaviour:
   includeHead: 0
   twoLayersOfHair: 0
   spriteObjectPrefab: {fileID: 7917295205585201841, guid: e75ab43e837f04f489b603d83fe20d21, type: 3}
-  backgroundDirectory: Human Assets/temp/Backgrounds
+  backgroundDirectory: 
   backHairDirectory: 
   bodyDirectory: Human Assets/temp/Bodies
   clothesDirectory: Human Assets/temp/Clothes

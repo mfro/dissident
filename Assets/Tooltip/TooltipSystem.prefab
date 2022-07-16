@@ -63,6 +63,10 @@ PrefabInstance:
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5412110946411442884, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: portraitRenderer
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 5412110946411442886, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
       propertyPath: m_Name
       value: TooltipNPC
@@ -111,7 +115,28 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 5412110946612855948, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5412110946612855951, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: m_Name
+      value: Portrait Generator
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562790964615242938, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: malePrefab
+      value: 
+      objectReference: {fileID: 5393040335413703555, guid: 8b1c109ba59d1a34681af20dade828ff, type: 3}
+    - target: {fileID: 7562790964615242938, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: nameObject
+      value: 
+      objectReference: {fileID: 5057171830868744635}
+    - target: {fileID: 7562790964615242938, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: femalePrefab
+      value: 
+      objectReference: {fileID: 42722175166541479, guid: ffcbc54f418bf274b9684447ca1fa880, type: 3}
+    m_RemovedComponents:
+    - {fileID: 5412110946612855949, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
 --- !u!4 &5057171829491596536 stripped
 Transform:
@@ -127,6 +152,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f0b17c2490dfb424d9b4e0bcb2ea0855, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &5057171830868744635 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5412110947758446468, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+  m_PrefabInstance: {fileID: 951667751178341951}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1001 &6887865291886360870
