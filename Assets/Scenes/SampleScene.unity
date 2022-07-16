@@ -264,6 +264,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7699592479036311297, guid: 40956b01e2803574d86701a33f08d0db, type: 3}
+      propertyPath: GridCellWidth
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7699592479036311297, guid: 40956b01e2803574d86701a33f08d0db, type: 3}
+      propertyPath: GridCellHeight
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7699592479036311299, guid: 40956b01e2803574d86701a33f08d0db, type: 3}
       propertyPath: m_Name
       value: board
