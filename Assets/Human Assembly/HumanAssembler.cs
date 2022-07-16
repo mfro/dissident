@@ -62,6 +62,10 @@ public class HumanAssembler : MonoBehaviour
 
     private Sprite[] LoadAssets(string directory)
     {
+        if (directory == "")
+        {
+            return null;
+        }
         object[] loadedAssets = Resources.LoadAll(directory, typeof(Sprite));
         Sprite[] list = new Sprite[loadedAssets.Length];
         for (int x = 0; x < loadedAssets.Length; x++)
@@ -73,6 +77,7 @@ public class HumanAssembler : MonoBehaviour
 
     private Sprite AssignSprite(Sprite[] list)
     {
+        if (list is null) return null;
         if (list.Length > 0)
         {
             return list[Random.Range(0, list.Length)];
