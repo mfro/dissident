@@ -1,15 +1,22 @@
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
 
 public class Card : MonoBehaviour
 {
-  public SpriteRenderer sprite;
+  public PixelText text;
 
-  public CardTrait[] traits;
+  public List<CardTrait> traits;
   public bool facing;
+  public int counter;
 
   public float MoveAnimationTime;
+
+  void Start()
+  {
+    text.text = gameObject.name;
+  }
 
   public bool Has(CardTrait trait)
   {

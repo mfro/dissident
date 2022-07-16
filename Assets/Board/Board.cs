@@ -22,15 +22,24 @@ public class Board : MonoBehaviour
 
     cards = new Card[Width, LineLength + CheckpointLength];
 
-    cards[0, 0] = MakeCard("human guard");
+    // cards[0, 0] = MakeCard("human guard");
 
-    cards[2, 2] = MakeCard("passport");
-    cards[3, 3] = MakeCard("fake passport");
+    // cards[2, 2] = MakeCard("passport");
+    // cards[3, 3] = MakeCard("fake passport");
 
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
     {
       for (int x = 0; x < Width; ++x)
       {
+        if (y == 0)
+        {
+          cards[x, y] = MakeCard("human guard");
+        }
+        else
+        {
+          cards[x, y] = MakeCard("passport");
+        }
+
         if (!cards[x, y]) continue;
 
         var _ = UpdatePosition(cards[x, y], x, y, 0, false);
@@ -91,6 +100,17 @@ public class Board : MonoBehaviour
         else
         {
           ResolveMove(done, x, y, card, x - 1, y);
+        }
+      }
+    }
+    else if (card.Has(CardTrait.Static))
+    {
+      if (card.counter > 0)
+      {
+        card.counter -= 1;
+        if (card.counter == 0)
+        {
+          card.traits.Remove(CardTrait.Static);
         }
       }
     }
@@ -175,6 +195,8 @@ public class Board : MonoBehaviour
   {
     var prefab = CardPrefabs.First(o => o.name == name);
     var instance = Instantiate(prefab, this.transform);
+
+    instance.name = prefab.name;
 
     return instance.GetComponent<Card>();
   }
