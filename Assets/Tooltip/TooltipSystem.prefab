@@ -55,6 +55,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5057171829200400918}
     m_Modifications:
+    - target: {fileID: 2398383963550398864, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8e7836b273702744b1172c749005d4d, type: 3}
+    - target: {fileID: 2398383963550398864, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5412110946411442886, guid: 0750669c076e7b14c9aaf89312fcd41f, type: 3}
       propertyPath: m_Name
       value: TooltipNPC
@@ -183,6 +191,14 @@ PrefabInstance:
     - target: {fileID: 1853286228270846214, guid: 9c62882c1de0f9c45a240b1268fcb84e, type: 3}
       propertyPath: m_Name
       value: Traits Text
+      objectReference: {fileID: 0}
+    - target: {fileID: 8071699130959160889, guid: 9c62882c1de0f9c45a240b1268fcb84e, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: e8e7836b273702744b1172c749005d4d, type: 3}
+    - target: {fileID: 8071699130959160889, guid: 9c62882c1de0f9c45a240b1268fcb84e, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9c62882c1de0f9c45a240b1268fcb84e, type: 3}
