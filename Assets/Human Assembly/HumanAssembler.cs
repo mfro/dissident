@@ -6,7 +6,7 @@ public class HumanAssembler : MonoBehaviour
 {
     SpriteRenderer background, backHair, body, clothes, head, mouth, nose, eyes, hat;
 
-    Sprite[] backgroundList, backHairList, bodyList, clothesList, headList, mouthList, noseList, eyesList, hatList;
+    Sprite[] backgroundList, bodyList, clothesList, headList, mouthList, noseList, eyesList, hatList;
 
     // Used for iteration across functions
     private int iter = 0;
@@ -33,7 +33,6 @@ public class HumanAssembler : MonoBehaviour
     {
         #region Load Art Assets and save them into lists
         backgroundList = LoadAssets(backgroundDirectory);
-        backHairList = LoadAssets(backHairDirectory);
         bodyList = LoadAssets(bodyDirectory);
         clothesList = LoadAssets(clothesDirectory);
         if (includeHead)
@@ -49,19 +48,25 @@ public class HumanAssembler : MonoBehaviour
         #region Create needed children on the Human Portrait object
         iter = 0;
         background = CreateChild("Background");
-        backHair = CreateChild("Back Hair");
         body = CreateChild("Body");
         clothes = CreateChild("Clothes");
-        head = CreateChild("Head");
+        if (includeHead)
+        {
+            head = CreateChild("Head");
+        }
         mouth = CreateChild("Mouth");
         nose = CreateChild("Nose");
         eyes = CreateChild("Eyes");
         hat = CreateChild("Hat");
+        if (twoLayersOfHair)
+        {
+            backHair = CreateChild("Back Hair", hat.transform);
+            backHair.sortingOrder = 6;
+        }
         #endregion
 
         #region Assign a random asset from the art asset list to its respective child sprite
         background.sprite = AssignSprite(backgroundList);
-        backHair.sprite = AssignSprite(backHairList);
         body.sprite = AssignSprite(bodyList);
         clothes.sprite = AssignSprite(clothesList);
         if (includeHead)
@@ -71,7 +76,14 @@ public class HumanAssembler : MonoBehaviour
         mouth.sprite = AssignSprite(mouthList);
         nose.sprite = AssignSprite(noseList);
         eyes.sprite = AssignSprite(eyesList);
-        hat.sprite = AssignSprite(hatList);
+        if (twoLayersOfHair)
+        {
+            AssignHair(hat, backHair);
+        }
+        else
+        {
+            hat.sprite = AssignSprite(hatList);
+        }
         #endregion
     }
 
@@ -90,19 +102,31 @@ public class HumanAssembler : MonoBehaviour
         return list;
     }
 
-    private Sprite AssignSprite(Sprite[] list)
+    private Sprite AssignSprite(Sprite[] list, int ID = -1)
     {
         if (list is null) return null;
-        if (list.Length > 0)
+        if (list.Length > 0 && ID == -1)
         {
             return list[Random.Range(0, list.Length)];
+        }
+        if (list.Length > 0 && ID >= 0)
+        {
+            return list[ID];
         }
         return null;
     }
 
-    private SpriteRenderer CreateChild(string name)
+    private void AssignHair(SpriteRenderer front, SpriteRenderer back)
     {
-        SpriteRenderer renderer = Instantiate(spriteObjectPrefab, transform.position, transform.rotation, transform).GetComponent<SpriteRenderer>();
+        int backID = Random.Range(0, hatList.Length / 2) * 2;
+        front.sprite = AssignSprite(hatList, backID + 1);
+        backHair.sprite = AssignSprite(hatList, backID);
+    }
+
+    private SpriteRenderer CreateChild(string name, Transform parent = null)
+    {
+        if (parent is  null) { parent = transform; }
+        SpriteRenderer renderer = Instantiate(spriteObjectPrefab, transform.position, transform.rotation, parent).GetComponent<SpriteRenderer>();
         renderer.gameObject.name = name;
         renderer.sortingOrder = iter += 5;
         return renderer;

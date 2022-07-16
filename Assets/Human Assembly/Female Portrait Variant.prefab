@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550372, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_Name
-      value: Female Portrait Variant
+      value: Female Portrait
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550372, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_IsActive
@@ -98,6 +98,10 @@ PrefabInstance:
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: mouthDirectory
       value: Human Assets/Female/Mouths
+      objectReference: {fileID: 0}
+    - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
+      propertyPath: twoLayersOfHair
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: clothesDirectory
