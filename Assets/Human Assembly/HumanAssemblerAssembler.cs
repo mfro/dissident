@@ -24,6 +24,6 @@ public class HumanAssemblerAssembler : MonoBehaviour
     {
         string[] firstNames = male ? GameManager.gm.maleNames : GameManager.gm.femaleNames;
         string[] lastNames = GameManager.gm.lastNames;
-        return firstNames[Random.Range(0, firstNames.Length)] + lastNames[Random.Range(0, lastNames.Length)];
+        return firstNames[Random.Range(0, firstNames.Length)] + " " + lastNames[Random.Range(0, lastNames.Length)];
     }
 }
