@@ -4,24 +4,36 @@ using UnityEngine;
 
 public class HumanAssembler : MonoBehaviour
 {
-    SpriteRenderer background, body, clothes, head, mouth, nose, eyes, hat;
+    SpriteRenderer background, backHair, body, clothes, head, mouth, nose, eyes, hat;
 
-    Sprite[] backgroundList, bodyList, clothesList, headList, mouthList, noseList, eyesList, hatList;
+    Sprite[] backgroundList, backHairList, bodyList, clothesList, headList, mouthList, noseList, eyesList, hatList;
 
-    public bool includeHead = false;
+    // Used for iteration across functions
+    private int iter = 0;
 
+    [Header("Runtime Testing Buttons")]
+    [Tooltip("Setting true instantly re-randomizes all component sprites")]
     public bool rerandomize = false;
+
+    [Header ("Generation Options")]
+    [Tooltip("Deprecated option from when head was a separate sprite from body")]
+    public bool includeHead = false;
+    [Tooltip("True when there is a background hair layer. Currently just used for female")]
+    public bool twoLayersOfHair = false;
+
+    public GameObject spriteObjectPrefab;
 
     [Header("Directory must be in Resources and should start with immediate child folder of Resources")]
     // I know this assignment looks silly, but it's to make the Unity Inspector play well with the header
     public string backgroundDirectory;
-    public string bodyDirectory, clothesDirectory, headDirectory, mouthDirectory, noseDirectory, eyesDirectory, hatDirectory;
+    public string backHairDirectory, bodyDirectory, clothesDirectory, headDirectory, mouthDirectory, noseDirectory, eyesDirectory, hatDirectory;
 
     // Start is called before the first frame update
     void Start()
     {
         #region Load Art Assets and save them into lists
         backgroundList = LoadAssets(backgroundDirectory);
+        backHairList = LoadAssets(backHairDirectory);
         bodyList = LoadAssets(bodyDirectory);
         clothesList = LoadAssets(clothesDirectory);
         if (includeHead)
@@ -34,19 +46,22 @@ public class HumanAssembler : MonoBehaviour
         hatList = LoadAssets(hatDirectory);
         #endregion
 
-        #region Find needed children on the Human Portrait object
-        background = transform.Find("Background").GetComponent<SpriteRenderer>();
-        body = transform.Find("Body").GetComponent<SpriteRenderer>();
-        clothes = transform.Find("Clothes").GetComponent<SpriteRenderer>();
-        head = transform.Find("Head").GetComponent<SpriteRenderer>();
-        mouth = transform.Find("Mouth").GetComponent<SpriteRenderer>();
-        nose = transform.Find("Nose").GetComponent<SpriteRenderer>();
-        eyes = transform.Find("Eyes").GetComponent<SpriteRenderer>();
-        hat = transform.Find("Hat").GetComponent<SpriteRenderer>();
+        #region Create needed children on the Human Portrait object
+        iter = 0;
+        background = CreateChild("Background");
+        backHair = CreateChild("Back Hair");
+        body = CreateChild("Body");
+        clothes = CreateChild("Clothes");
+        head = CreateChild("Head");
+        mouth = CreateChild("Mouth");
+        nose = CreateChild("Nose");
+        eyes = CreateChild("Eyes");
+        hat = CreateChild("Hat");
         #endregion
 
         #region Assign a random asset from the art asset list to its respective child sprite
         background.sprite = AssignSprite(backgroundList);
+        backHair.sprite = AssignSprite(backHairList);
         body.sprite = AssignSprite(bodyList);
         clothes.sprite = AssignSprite(clothesList);
         if (includeHead)
@@ -85,10 +100,21 @@ public class HumanAssembler : MonoBehaviour
         return null;
     }
 
+    private SpriteRenderer CreateChild(string name)
+    {
+        SpriteRenderer renderer = Instantiate(spriteObjectPrefab, transform.position, transform.rotation, transform).GetComponent<SpriteRenderer>();
+        renderer.gameObject.name = name;
+        renderer.sortingOrder = iter += 5;
+        return renderer;
+    }
+
     void Update()
     {
         if (rerandomize)
         {
+            foreach (SpriteRenderer child in GetComponentsInChildren<SpriteRenderer>()) {
+                Destroy(child.gameObject);
+            }
             Start();
             rerandomize = false;
         }

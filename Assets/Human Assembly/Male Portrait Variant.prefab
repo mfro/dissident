@@ -21,7 +21,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550373, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550373, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_LocalPosition.y
@@ -65,15 +65,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: hatDirectory
-      value: Human Assets/Gaunt Man/Hats
+      value: Human Assets/Male/Hats
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: bodyDirectory
-      value: Human Assets/Gaunt Man/Bodies
+      value: Human Assets/Male/Bodies
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: eyesDirectory
-      value: Human Assets/Gaunt Man/Eyes
+      value: Human Assets/Male/Eyes
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: headDirectory
@@ -81,15 +81,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: noseDirectory
-      value: Human Assets/Gaunt Man/Noses
+      value: Human Assets/Male/Noses
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: mouthDirectory
-      value: Human Assets/Gaunt Man/Mouths
+      value: Human Assets/Male/Mouths
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: clothesDirectory
-      value: Human Assets/Gaunt Man/Clothes
+      value: Human Assets/Male/Clothes
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30f84decfec18e741b183837388d5786, type: 3}
