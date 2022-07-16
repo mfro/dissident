@@ -3,40 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TooltipNPCTrigger : MonoBehaviour
+public class TooltipTrigger : MonoBehaviour
 {
+    [SerializeField] bool isNPC;
 
-    [SerializeField] string nameNPC;
+    [SerializeField] string nameString;
     [Multiline()]
-    [SerializeField] string content;
+    [SerializeField] string contentString;
     [SerializeField] Sprite portrait;
+    [SerializeField] string[] traits;
+
 
     [SerializeField] float awakeDelay = 0.25f;
-    [SerializeField] float sleepDelay = 0.1f;
-
 
     IEnumerator DelayedShow()
     {
         yield return new WaitForSeconds(awakeDelay);
-        TooltipSystem.ShowNPC(portrait, content, nameNPC);
+
+        if (isNPC)
+        {
+            TooltipSystem.ShowNPC(portrait, contentString, nameString);
+        } 
+        else
+        {
+            TooltipSystem.ShowCard(portrait, contentString, traits, nameString);
+        }
+
     }
 
-    IEnumerator DelayedHide()
+    private void Hide()
     {
-        yield return new WaitForSeconds(sleepDelay);
-        TooltipSystem.HideNPC();
+
+        if(isNPC)
+        {
+            TooltipSystem.HideNPC();
+        }
+        else
+        {
+            TooltipSystem.HideCard();
+        }
+
     }
 
     public void OnMouseEnter()
     {
         StartCoroutine(DelayedShow());
-        StopCoroutine(DelayedHide());
+        Hide();
     }
 
     public void OnMouseExit()
     {
         StopCoroutine(DelayedShow());
-        StartCoroutine(DelayedHide());
+        Hide();
     }
 
     // Start is called before the first frame update

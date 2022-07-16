@@ -9,7 +9,7 @@ public class Tooltip : MonoBehaviour
 
     [SerializeField] PixelText nameText;
     [SerializeField] PixelText contentsText;
-    [SerializeField] PixelText keywordsText;
+    [SerializeField] PixelText traitsText;
 
 
 
@@ -26,7 +26,7 @@ public class Tooltip : MonoBehaviour
         nameText.name = name;
     }
 
-    public void Configure(Sprite portrait, string content, string[] keywords, string name)
+    public void Configure(Sprite portrait, string content, string[] traits, string name)
     {
         portraitRenderer.sprite = portrait;
         contentsText.text = content;

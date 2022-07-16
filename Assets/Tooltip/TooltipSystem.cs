@@ -29,9 +29,9 @@ public class TooltipSystem : MonoBehaviour
         current.tooltipNPC.gameObject.SetActive(false);
     }
 
-    public static void ShowCard(Sprite portrait, string content, string[] keywords, string name)
+    public static void ShowCard(Sprite portrait, string content, string[] traits, string name)
     {
-        current.tooltipCard.Configure(portrait, content, keywords, name);
+        current.tooltipCard.Configure(portrait, content, traits, name);
         current.tooltipCard.gameObject.SetActive(true);
     }
 
