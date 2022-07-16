@@ -117,11 +117,17 @@ public class PixelText : MonoBehaviour
         : OTHER.Contains(ch) ? other[OTHER.IndexOf(ch)]
         : null;
 
-      return (width, sprite);
+      var offset = UPPER.Contains(ch) ? new Vector2(0, -1)
+        : LOWER.Contains(ch) ? new Vector2(0, -2)
+        : OTHER.Contains(ch) ? new Vector2(0, -1)
+        : Vector2.zero;
+
+      return (width, sprite, offset);
     });
 
     var width = layout.Sum(s => s.width + 1);
     if (width > 0) width -= 1;
+    if (width % 2 == 1) width += 1;
 
     float origin;
     if (alignment == TextAlignment.Left)
@@ -149,7 +155,7 @@ public class PixelText : MonoBehaviour
         // rect.anchorMin = new Vector2(x, -2);
         // rect.anchorMax = new Vector2(x + 5, 7);
 
-        obj.transform.localPosition = new Vector3(origin + x + 2.5f, -2, 0);
+        obj.transform.localPosition = new Vector3(origin + x + 2.5f, pair.offset.y, 0);
 
         var renderer = obj.AddComponent<Image>();
         renderer.sprite = pair.sprite;
@@ -157,7 +163,7 @@ public class PixelText : MonoBehaviour
       }
       else
       {
-        obj.transform.localPosition = new Vector3((origin + x) / 32f, -2 / 32f, 0);
+        obj.transform.localPosition = new Vector3((origin + x) / 32f, pair.offset.y / 32f, 0);
 
         var renderer = obj.AddComponent<SpriteRenderer>();
         renderer.sprite = pair.sprite;

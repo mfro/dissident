@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-  public static GameObject[] CardPrefabs;
-
   public int Width;
   public int LineLength;
   public int CheckpointLength;
@@ -18,8 +16,6 @@ public class Board : MonoBehaviour
 
   void Start()
   {
-    CardPrefabs = Resources.LoadAll<GameObject>("Cards");
-
     cards = new Card[Width, LineLength + CheckpointLength];
 
     // cards[0, 0] = MakeCard("human guard");
@@ -33,11 +29,12 @@ public class Board : MonoBehaviour
       {
         if (y == 0)
         {
-          cards[x, y] = MakeCard("human guard");
+          cards[x, y] = GameManager.gm.MakeCard("human guard", gameObject);
         }
         else
         {
-          cards[x, y] = MakeCard("passport");
+          var name = Random.value > 0.5f ? "passport" : "fake passport";
+          cards[x, y] = GameManager.gm.MakeCard(name, gameObject);
         }
 
         if (!cards[x, y]) continue;
@@ -189,16 +186,6 @@ public class Board : MonoBehaviour
     await UpdatePosition(card, toX, toY, 1, true);
 
     Destroy(card.gameObject);
-  }
-
-  public Card MakeCard(string name)
-  {
-    var prefab = CardPrefabs.First(o => o.name == name);
-    var instance = Instantiate(prefab, this.transform);
-
-    instance.name = prefab.name;
-
-    return instance.GetComponent<Card>();
   }
 
   private static bool MatchCollision(Card enter, Card stand, CardTrait one, CardTrait two)

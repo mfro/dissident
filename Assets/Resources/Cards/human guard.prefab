@@ -8,17 +8,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2911932555360125915, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
-      propertyPath: m_Color.b
-      value: 0.5471698
-      objectReference: {fileID: 0}
-    - target: {fileID: 2911932555360125915, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
-      propertyPath: m_Color.g
-      value: 0.204563
-      objectReference: {fileID: 0}
-    - target: {fileID: 2911932555360125915, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
-      propertyPath: m_Color.r
-      value: 0
-      objectReference: {fileID: 0}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f81050bb4c1c1164a98437f87183aee7, type: 3}
     - target: {fileID: 2911932555635942920, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -78,6 +70,10 @@ PrefabInstance:
     - target: {fileID: 5390733618939984451, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: traits.Array.data[1]
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8938153867721791097, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
+      propertyPath: _text
+      value: Guard
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
