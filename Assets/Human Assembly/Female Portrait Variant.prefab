@@ -25,7 +25,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550372, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_Name
-      value: Female Portrait
+      value: Female Portrait Variant
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550372, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_IsActive
@@ -37,7 +37,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550373, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550373, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: m_LocalPosition.y
