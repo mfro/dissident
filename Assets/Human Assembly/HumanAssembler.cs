@@ -18,7 +18,7 @@ public class HumanAssembler : MonoBehaviour
     [Header ("Generation Options")]
     [Tooltip("Deprecated option from when head was a separate sprite from body")]
     public bool includeHead = false;
-    [Tooltip("True when there is a background hair layer. Currently just used for female")]
+    [Tooltip("True when there is a background hair layer")]
     public bool twoLayersOfHair = false;
 
     public GameObject spriteObjectPrefab;
@@ -26,7 +26,7 @@ public class HumanAssembler : MonoBehaviour
     [Header("Directory must be in Resources and should start with immediate child folder of Resources")]
     // I know this assignment looks silly, but it's to make the Unity Inspector play well with the header
     public string backgroundDirectory;
-    public string backHairDirectory, bodyDirectory, clothesDirectory, headDirectory, mouthDirectory, noseDirectory, eyesDirectory, hatDirectory;
+    public string bodyDirectory, clothesDirectory, headDirectory, mouthDirectory, noseDirectory, eyesDirectory, hatDirectory;
 
     // Start is called before the first frame update
     void Start()

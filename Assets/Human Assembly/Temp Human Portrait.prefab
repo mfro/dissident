@@ -50,10 +50,10 @@ MonoBehaviour:
   spriteObjectPrefab: {fileID: 7917295205585201841, guid: e75ab43e837f04f489b603d83fe20d21, type: 3}
   backgroundDirectory: 
   backHairDirectory: 
-  bodyDirectory: Human Assets/temp/Bodies
-  clothesDirectory: Human Assets/temp/Clothes
-  headDirectory: Human Assets/temp/Heads
-  mouthDirectory: Human Assets/temp/Mouths
-  noseDirectory: Human Assets/temp/Noses
-  eyesDirectory: Human Assets/temp/Eyes
-  hatDirectory: Human Assets/temp/Hats
+  bodyDirectory: 
+  clothesDirectory: 
+  headDirectory: 
+  mouthDirectory: 
+  noseDirectory: 
+  eyesDirectory: 
+  hatDirectory: 

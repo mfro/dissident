@@ -88,6 +88,10 @@ PrefabInstance:
       value: Human Assets/Male/Mouths
       objectReference: {fileID: 0}
     - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
+      propertyPath: twoLayersOfHair
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8833039263626550374, guid: 30f84decfec18e741b183837388d5786, type: 3}
       propertyPath: clothesDirectory
       value: Human Assets/Male/Clothes
       objectReference: {fileID: 0}
