@@ -130,3 +130,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sprite: {fileID: 2911932555360125915}
+  traits: 
+  facing: 0
+  MoveAnimationTime: 0.25

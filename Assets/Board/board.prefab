@@ -44,7 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c05853a09c07a0d40af1fe86d5ae5c3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  width: 4
-  line_length: 4
-  checkpoint_length: 1
-  CardPrefab: {fileID: 2911932555635942921, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
+  Width: 5
+  LineLength: 5
+  CheckpointLength: 1
+  GridCellSize: {x: 1.5, y: 1.5}
