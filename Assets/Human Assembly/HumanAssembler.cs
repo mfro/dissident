@@ -10,6 +10,8 @@ public class HumanAssembler : MonoBehaviour
 
     public bool includeHead = false;
 
+    public bool rerandomize = false;
+
     [Header("Directory must be in Resources and should start with immediate child folder of Resources")]
     // I know this assignment looks silly, but it's to make the Unity Inspector play well with the header
     public string backgroundDirectory;
@@ -76,5 +78,14 @@ public class HumanAssembler : MonoBehaviour
             return list[Random.Range(0, list.Length)];
         }
         return null;
+    }
+
+    void Update()
+    {
+        if (rerandomize)
+        {
+            Start();
+            rerandomize = false;
+        }
     }
 }
