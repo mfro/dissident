@@ -15,7 +15,6 @@ public class Card : MonoBehaviour
 
   void Start()
   {
-    text.text = gameObject.name;
   }
 
   public bool Has(CardTrait trait)

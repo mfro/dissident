@@ -1,38 +1,40 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager gm;
-    public bool visibleMouse = true;
+  public static GameObject[] CardPrefabs;
 
-    void Awake()
+  public static GameManager gm;
+  public bool visibleMouse = true;
+
+  void Awake()
+  {
+    if (gm == null)
     {
-        if (gm == null)
-        {
-            gm = this.GetComponent<GameManager>();
-            DontDestroyOnLoad(this);
-        }
-
-        else
-        {
-            GameManager.gm.Start();
-            Destroy(this);
-            return;
-        }
-
+      gm = this.GetComponent<GameManager>();
+      DontDestroyOnLoad(this);
     }
 
-    // Start is called before the first frame update
-    public void Start()
+    else
     {
-        
+      // GameManager.gm.Start();
+      Destroy(this);
+      return;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    CardPrefabs = Resources.LoadAll<GameObject>("Cards");
+  }
+
+  public Card MakeCard(string name, GameObject parent)
+  {
+    var prefab = CardPrefabs.First(o => o.name == name);
+    var instance = Instantiate(prefab, parent.transform);
+
+    instance.name = prefab.name;
+
+    return instance.GetComponent<Card>();
+  }
 }
