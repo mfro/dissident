@@ -84,8 +84,8 @@ MonoBehaviour:
   score: 0
   currentLives: 0
   maxLives: 3
-  scoreText: {fileID: 0}
-  livesText: {fileID: 0}
+  scoreText: {fileID: 2180122775489578593}
+  livesText: {fileID: 2180122776577213086}
   gameOverText: {fileID: 2180122776231150696}
   gameOverScoreText: {fileID: 2180122775903254663}
   returningToMenuText: {fileID: 2180122777317591586}
@@ -154,6 +154,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+--- !u!114 &2180122775489578593 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5096085916550859693, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+  m_PrefabInstance: {fileID: 6411354801479159244}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2450044802618706321 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
@@ -418,6 +429,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+--- !u!114 &2180122776577213086 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5096085916550859693, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+  m_PrefabInstance: {fileID: 6411354802038311219}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &2450044801021988206 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}

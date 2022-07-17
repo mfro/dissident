@@ -35,6 +35,11 @@ public class Hand : MonoBehaviour
     }
   }
 
+  void Update()
+  {
+    deckClick.gameObject.SetActive(cards.Count < maxCards);
+  }
+
   public void Draw1()
   {
     if (cards.Count >= maxCards) return;

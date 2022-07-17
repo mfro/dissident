@@ -27,7 +27,11 @@ public abstract class ActionCard : MonoBehaviour
   void OnMouseDown()
   {
     var card = this.GetComponent<Card>();
-    if (card.board.actionSystem.CurrentActions > 0)
+    if (card.board.playing == this)
+    {
+      card.board.Cancel();
+    }
+    else if (CanPlay())
     {
       card.hand.Play(this);
     }
@@ -35,7 +39,8 @@ public abstract class ActionCard : MonoBehaviour
 
   void OnMouseEnter()
   {
-    this.GetComponent<Card>().highlight = CanPlay();
+    var card = this.GetComponent<Card>();
+    this.GetComponent<Card>().highlight = card.board.playing == this || CanPlay();
   }
 
   void OnMouseExit()

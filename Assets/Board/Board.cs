@@ -35,6 +35,7 @@ public class Board : MonoBehaviour
   public ActionSystem actionSystem;
   public Hand hand;
   public GuardController guard;
+  public ScoreLifeSystem score;
 
   public ActionCard playing;
   public int playing_index;
@@ -42,6 +43,8 @@ public class Board : MonoBehaviour
   public int level;
 
   private bool[] clearRows;
+
+  private int animations;
 
   PeopleManager peopleManager;
 
@@ -127,7 +130,7 @@ public class Board : MonoBehaviour
 
   void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Space))
+    if (Input.GetKeyDown(KeyCode.Space) && animations == 0)
     {
       ResolveStep();
     }
@@ -155,10 +158,12 @@ public class Board : MonoBehaviour
 
     if (clearRows.Any(o => o))
     {
+      score.currentLives -= 1;
       guard.GuardDisapproval();
     }
     else
     {
+      score.score += 1;
       guard.GuardApproval();
     }
 
@@ -313,12 +318,14 @@ public class Board : MonoBehaviour
   {
     if (enter.Has(CardTrait.Alive) && stand.Has(CardTrait.Anthrax))
     {
+      clearRows[toY] = true;
       DestroyCard(toX, toY, stand, toX, toY);
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
     }
     else if (enter.Has(CardTrait.Anthrax) && stand.Has(CardTrait.Police))
     {
+      clearRows[toY] = true;
       DestroyCard(toX, toY, stand, toX, toY);
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
@@ -376,7 +383,9 @@ public class Board : MonoBehaviour
 
     if (animate)
     {
+      animations += 1;
       await card.AnimateMove(to);
+      animations -= 1;
     }
     else
     {
@@ -403,9 +412,18 @@ public class Board : MonoBehaviour
     this.UpdateInput();
   }
 
+  public void Cancel()
+  {
+    actionSystem.CurrentActions += 1;
+
+    this.playing.GetComponent<Card>().highlight = true;
+    this.playing = null;
+    this.UpdateInput();
+  }
+
   private void UpdateInput()
   {
-    if (this.playing_index == this.playing.arguments.Length)
+    if (this.playing && this.playing_index == this.playing.arguments.Length)
     {
       var action = this.playing;
       var card = action.GetComponent<Card>();
@@ -439,10 +457,14 @@ public class Board : MonoBehaviour
       action.Apply(this);
       UpdateClickAreas((ActionCardArgument.None, (board, o) => false));
     }
-    else
+    else if (this.playing)
     {
       var argument = this.playing.arguments[this.playing_index];
       UpdateClickAreas(argument);
+    }
+    else
+    {
+      UpdateClickAreas((ActionCardArgument.None, (board, o) => false));
     }
   }
 
