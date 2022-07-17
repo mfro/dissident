@@ -84,6 +84,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: action obstruct
       objectReference: {fileID: 0}
+    - target: {fileID: 4243332645509105612, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
+      propertyPath: actionCost
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5390733618939984451, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: counter
       value: 1
