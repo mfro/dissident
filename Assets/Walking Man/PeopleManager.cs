@@ -20,12 +20,12 @@ public class PeopleManager : MonoBehaviour
     {
         allPeople = new List<GameObject>();
         stillWalking = false;
-        SpawnPerson();
     }
 
     public void MoveLine()
     {
-        ToggleAllWalking();
+        SpawnPerson();
+        StartWalking();
     }
 
     public void SpawnPerson()
@@ -34,22 +34,28 @@ public class PeopleManager : MonoBehaviour
         allPeople.Add(man);
     }
 
-    private void ToggleAllWalking()
+    void SetAllWalking(bool state)
     {
-        for (int i = 0; i < allPeople.Count; i++)
+        foreach (GameObject man in allPeople)
         {
-            WalkingManController wmc = allPeople[i].GetComponent<WalkingManController>();
-            wmc.toggleWalking = true;
-            StartCoroutine(StopWalking());
-            stillWalking = !stillWalking;
+            man.GetComponent<WalkingManController>().SetWalking(state);
         }
+    }
+
+    private void StartWalking()
+    {
+        SetAllWalking(true);
+        StartCoroutine(StopWalking());
+        stillWalking = !stillWalking;
     }
 
     private IEnumerator StopWalking()
     {
         yield return new WaitForSeconds(moveDuration);
-        ToggleAllWalking();
+        SetAllWalking(false);
     }
+
+
 
     // Update is called once per frame
     void Update()
