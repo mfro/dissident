@@ -28,6 +28,8 @@ public class Board : MonoBehaviour
 
   public GameObject ClickAreaTemplate;
 
+  public ActionSystem actionSystem;
+
   public ActionCard playing;
   public int playing_index;
 
@@ -307,6 +309,8 @@ public class Board : MonoBehaviour
 
   public void Play(ActionCard action)
   {
+    actionSystem.CurrentActions -= 1;
+
     this.playing = action;
     this.playing_index = 0;
     this.UpdateInput();

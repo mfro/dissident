@@ -65,11 +65,10 @@ public class PixelText : MonoBehaviour
     ['u'] = 7,
     ['w'] = 8,
 
-    ['1'] = 8,
+    ['1'] = 4,
     ['.'] = 2,
     [','] = 3,
     ['!'] = 2,
-    ['?'] = 6,
     ['\''] = 2,
     ['&'] = 8,
     ['('] = 3,
@@ -99,19 +98,13 @@ public class PixelText : MonoBehaviour
     {
       upper = MakeSprites(UPPER, 24, 8, 11);
       lower = MakeSprites(LOWER, 12, 6, 12);
-      other = MakeSprites(OTHER, 0, 2, 12);
+      other = MakeSprites(OTHER, 0, 6, 12);
     }
 
     var ui = GetComponent<RectTransform>();
 
     var layout = text.Select(ch =>
     {
-      var width = kerning.GetValueOrDefault(ch,
-          UPPER.Contains(ch) ? 8
-        : LOWER.Contains(ch) ? 6
-        : OTHER.Contains(ch) ? 2
-        : 0);
-
       var sprite = UPPER.Contains(ch) ? upper[UPPER.IndexOf(ch)]
         : LOWER.Contains(ch) ? lower[LOWER.IndexOf(ch)]
         : OTHER.Contains(ch) ? other[OTHER.IndexOf(ch)]
@@ -121,6 +114,8 @@ public class PixelText : MonoBehaviour
         : LOWER.Contains(ch) ? new Vector2(0, -2)
         : OTHER.Contains(ch) ? new Vector2(0, -1)
         : Vector2.zero;
+
+      var width = (int)(sprite?.rect.width ?? 2);
 
       return (width, sprite, offset);
     });
@@ -147,15 +142,16 @@ public class PixelText : MonoBehaviour
       obj.layer = gameObject.layer;
       obj.hideFlags |= HideFlags.DontSave;
 
+      var height = pair.sprite?.rect.height ?? 0;
+
       if (ui)
       {
         var rect = obj.AddComponent<RectTransform>();
-        rect.offsetMax = new Vector2(5, 9);
+        rect.offsetMax = new Vector2(pair.width, height);
         rect.offsetMin = new Vector2(0, 0);
-        // rect.anchorMin = new Vector2(x, -2);
-        // rect.anchorMax = new Vector2(x + 5, 7);
+        rect.pivot = new Vector2(0, 0);
 
-        obj.transform.localPosition = new Vector3(origin + x + 2.5f, pair.offset.y, 0);
+        obj.transform.localPosition = new Vector3(origin + x, pair.offset.y - 5, 0);
 
         var renderer = obj.AddComponent<Image>();
         renderer.sprite = pair.sprite;

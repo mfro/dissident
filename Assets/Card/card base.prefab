@@ -199,7 +199,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2911932555360125912}
-  - {fileID: 8938153867721791102}
+  - {fileID: 4632980600657910153}
   - {fileID: 6685724454503781730}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -221,6 +221,7 @@ MonoBehaviour:
   facing: 0
   counter: 0
   MoveAnimationTime: 0.5
+  board: {fileID: 0}
 --- !u!61 &3725904317982904356
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -322,8 +323,37 @@ PrefabInstance:
       propertyPath: alignment
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4375
+      objectReference: {fileID: 0}
+    - target: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+--- !u!4 &4632980600657910153 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
+  m_PrefabInstance: {fileID: 4229544919791164884}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &8938153867721791097 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5096085916550859693, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
@@ -335,8 +365,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &8938153867721791102 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 5096085916550859690, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
-  m_PrefabInstance: {fileID: 4229544919791164884}
-  m_PrefabAsset: {fileID: 0}
