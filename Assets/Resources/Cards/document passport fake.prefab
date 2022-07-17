@@ -7,6 +7,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -2760985864941044381, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
+      propertyPath: effectText
+      value: Dirty document
+      objectReference: {fileID: 0}
     - target: {fileID: 2911932555360125912, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: m_LocalScale.x
       value: 1

@@ -19,19 +19,50 @@ public class Tooltip : MonoBehaviour
         
     }
 
-    public void Configure(Sprite portrait, string content, string name)
+    public void Configure(string content, string name)
     {
-        portraitRenderer.sprite = portrait;
         contentsText.text = content;
         nameText.name = name;
     }
 
-    public void Configure(Sprite portrait, string content, string[] traits, string name)
+    private string GetKeywordText(CardTrait trait)
+    {
+
+        return trait.ToString();
+/*        switch(trait)
+        {
+            case CardTrait.Alive:
+                return "This card is currently alive";
+            case CardTrait.Anthrax:
+                return "This card will kill a guard";
+            case CardTrait.Document:
+                return "This is a document. Guards will process them when they come in contact";
+            case CardTrait.Patrol:
+                return "Guards with this property move left and right in a circular pattern instead of up and down";
+            case CardTrait.Police:
+                return "uh";
+            case CardTrait.Static:
+                return "This card does not move";
+            case CardTrait.Suspicious:
+                return "Guards will confiscate this document, and arrest the associated citizen";
+            default:
+                return "";
+        }*/
+    }
+
+    public void Configure(Sprite portrait, string content, List<CardTrait> traits, string name)
     {
         portraitRenderer.sprite = portrait;
         contentsText.text = content;
 
-        //TODO: keywords
+        string traitsString = "";
+        for(int i = 0; i < traits.Count; i++)
+        {
+            traitsString += GetKeywordText(traits[i]);
+            if (i != traits.Count - 1) traitsString += ", ";
+        }
+
+        traitsText.text = traitsString;
         nameText.text = name;
     }
 
