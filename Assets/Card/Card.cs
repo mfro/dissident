@@ -21,6 +21,10 @@ public class Card : MonoBehaviour
 
   public float MoveAnimationTime;
 
+  public bool highlight {
+    set => GetComponent<SpriteRenderer>().enabled = value;
+  }
+
   public Board board;
   public Hand hand;
 

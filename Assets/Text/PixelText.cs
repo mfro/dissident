@@ -30,7 +30,7 @@ public class PixelText : MonoBehaviour
 
   private const string UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   private const string LOWER = "abcdefghijklmnopqrstuvwxyz";
-  private const string OTHER = "0123456789.,!?'&()/-";
+  private const string OTHER = "0123456789.,!?'&()/-:";
 
   private Dictionary<char, Sprite> sprites;
   private static Dictionary<char, int> kerning = new Dictionary<char, int>
@@ -75,6 +75,7 @@ public class PixelText : MonoBehaviour
     [')'] = 3,
     ['/'] = 3,
     ['-'] = 4,
+    [':'] = 2,
   };
 
   private void MakeSprites(string alphabet, int y_offset, int height)
