@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ public enum ActionCardArgument
 
 public abstract class ActionCard : MonoBehaviour
 {
-  public abstract ActionCardArgument[] arguments { get; }
+  public abstract (ActionCardArgument, Func<Board, System.Object, bool>)[] arguments { get; }
   public System.Object[] values;
 
   public abstract void Apply(Board board);
@@ -30,5 +31,31 @@ public abstract class ActionCard : MonoBehaviour
     {
       card.hand.Play(this);
     }
+  }
+
+  void OnMouseEnter()
+  {
+    this.GetComponent<Card>().highlight = CanPlay();
+  }
+
+  void OnMouseExit()
+  {
+    var card = this.GetComponent<Card>();
+    this.GetComponent<Card>().highlight = card.board.playing == this;
+  }
+
+  bool CanPlay()
+  {
+    var card = this.GetComponent<Card>();
+    if (card.board.actionSystem.CurrentActions == 0)
+      return false;
+
+    if (card.board.playing)
+      return false;
+
+    if (!card.hand)
+      return false;
+
+    return true;
   }
 }

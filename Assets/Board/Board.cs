@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using UnityEngine;
+
+using Random = UnityEngine.Random;
 
 public enum StepState
 {
@@ -20,6 +23,7 @@ public class Board : MonoBehaviour
   public float LineDelay;
 
   public Vector2 GridCellSize;
+  public float GuardRowOffset;
 
   public Card[,] cards;
 
@@ -30,6 +34,7 @@ public class Board : MonoBehaviour
 
   public ActionSystem actionSystem;
   public Hand hand;
+  public GuardController guard;
 
   public ActionCard playing;
   public int playing_index;
@@ -38,7 +43,7 @@ public class Board : MonoBehaviour
 
   private bool[] clearRows;
 
-    PeopleManager peopleManager;
+  PeopleManager peopleManager;
 
   public static (System.Action<Board>, System.Action<Board>)[] levels = {
     (board => {
@@ -73,7 +78,7 @@ public class Board : MonoBehaviour
 
   void Start()
   {
-        peopleManager = FindObjectOfType<PeopleManager>();
+    peopleManager = FindObjectOfType<PeopleManager>();
 
     levels[level].Item1(this);
 
@@ -134,7 +139,7 @@ public class Board : MonoBehaviour
 
     GameManager.gm.PlaySound(GameManager.SoundEffects.peopleShuffle);
 
-        peopleManager.MoveLine();
+    peopleManager.MoveLine();
 
     var done = new StepState[Width, LineLength + CheckpointLength];
 
@@ -146,6 +151,15 @@ public class Board : MonoBehaviour
       {
         ResolveStep(done, x, y);
       }
+    }
+
+    if (clearRows.Any(o => o))
+    {
+      guard.GuardDisapproval();
+    }
+    else
+    {
+      guard.GuardApproval();
     }
 
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
@@ -166,7 +180,7 @@ public class Board : MonoBehaviour
     {
       if (cards[x, LineLength + CheckpointLength - 1])
       {
-        return;
+        continue;
       }
     }
 
@@ -355,6 +369,11 @@ public class Board : MonoBehaviour
       y * 10 + z
     );
 
+    if (y < CheckpointLength)
+    {
+      to.y -= GuardRowOffset;
+    }
+
     if (animate)
     {
       await card.AnimateMove(to);
@@ -379,6 +398,7 @@ public class Board : MonoBehaviour
     actionSystem.CurrentActions -= 1;
 
     this.playing = action;
+    this.playing.GetComponent<Card>().highlight = true;
     this.playing_index = 0;
     this.UpdateInput();
   }
@@ -388,9 +408,36 @@ public class Board : MonoBehaviour
     if (this.playing_index == this.playing.arguments.Length)
     {
       var action = this.playing;
+      var card = action.GetComponent<Card>();
+
+      hand.cards.Remove(card);
+      hand.deck.DiscardCard(card.name);
+      Destroy(card.gameObject);
+
       this.playing = null;
+
+      for (var i = 0; i < hand.cards.Count; ++i)
+      {
+        var _ = hand.UpdatePosition(hand.cards[i], i, i, true);
+      }
+
+      var cost = 0;
+      for (var i = 0; i < action.values.Length; ++i)
+      {
+        if (action.values[i] is Vector2Int v)
+        {
+          cost += GetCost(v.y);
+        }
+        else if (action.values[i] is int y)
+        {
+          cost += GetCost(y);
+        }
+      }
+
+      actionSystem.CurrentActions -= cost;
+
       action.Apply(this);
-      UpdateClickAreas(ActionCardArgument.None);
+      UpdateClickAreas((ActionCardArgument.None, (board, o) => false));
     }
     else
     {
@@ -399,21 +446,28 @@ public class Board : MonoBehaviour
     }
   }
 
-  private void UpdateClickAreas(ActionCardArgument arg)
+  public int GetCost(int row)
+  {
+    if (row == CheckpointLength)
+      return 2;
+
+    if (row == CheckpointLength + 1)
+      return 1;
+
+    return 0;
+  }
+
+  private void UpdateClickAreas((ActionCardArgument, Func<Board, System.Object, bool>) arg)
   {
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
     {
-      rowClickAreas[y].Enable(arg == ActionCardArgument.Row);
+      rowClickAreas[y].Enable(arg.Item1 == ActionCardArgument.Row && arg.Item2(this, y));
 
       for (int x = 0; x < Width; ++x)
       {
-        if (arg == ActionCardArgument.Cell)
+        if (arg.Item1 == ActionCardArgument.Cell)
         {
-          cardClickAreas[x, y].Enable(true);
-        }
-        else if (arg == ActionCardArgument.EmptyCell)
-        {
-          cardClickAreas[x, y].Enable(cards[x, y] == null);
+          cardClickAreas[x, y].Enable(arg.Item2(this, new Vector2Int(x, y)));
         }
         else
         {

@@ -54,20 +54,13 @@ public class Hand : MonoBehaviour
 
   public void Play(ActionCard action)
   {
+    if (board.playing) return;
+
     var card = action.GetComponent<Card>();
-    cards.Remove(card);
     card.board.Play(action);
-
-    deck.DiscardCard(card.name);
-    Destroy(card.gameObject);
-
-    for (var i = 0; i < cards.Count; ++i)
-    {
-      var _ = UpdatePosition(cards[i], i, i, true);
-    }
   }
 
-  async Task UpdatePosition(Card card, int index, int z, bool animate)
+  public async Task UpdatePosition(Card card, int index, int z, bool animate)
   {
     var range = cards.Count * CardSpacing;
     var to = new Vector3(
