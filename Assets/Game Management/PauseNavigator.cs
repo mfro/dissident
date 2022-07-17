@@ -34,12 +34,12 @@ public class PauseNavigator : MonoBehaviour
     void TogglePause()
     {
         paused = !paused;
-        Time.timeScale = paused ? 1 : 0;
+        Time.timeScale = paused ? 0 : 1;
         if (paused) { SetupPause(); }
         pauseCanvas.SetActive(paused);
     }
 
-    public void SetupPause() 
+    public void SetupPause()
     {
         pauseMenu.SetActive(true);
         pauseSettings.SetActive(false);

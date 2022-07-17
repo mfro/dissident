@@ -23,14 +23,47 @@ public class Board : MonoBehaviour
 
   public Card[,] cards;
 
+  public ClickArea[] rowClickAreas;
+  public ClickArea[,] cardClickAreas;
+
+  public GameObject ClickAreaTemplate;
+
+  public ActionCard playing;
+  public int playing_index;
+
   void Start()
   {
     cards = new Card[Width, LineLength + CheckpointLength];
 
+    rowClickAreas = new ClickArea[LineLength + CheckpointLength];
+    cardClickAreas = new ClickArea[Width, LineLength + CheckpointLength];
+
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
     {
+      var input_row = y;
+      rowClickAreas[y] = Instantiate(ClickAreaTemplate, this.transform).GetComponent<ClickArea>();
+      rowClickAreas[y].transform.localPosition = new Vector3(0, ((LineLength + CheckpointLength - 1) / 2f - y) * GridCellSize.y, -2);
+      rowClickAreas[y].transform.localScale = new Vector3(Width * GridCellSize.x, GridCellSize.y, 1);
+      rowClickAreas[y].GetComponent<ClickArea>().callback = () => ProcessInput(input_row);
+      rowClickAreas[y].Enable(false);
+
       for (int x = 0; x < Width; ++x)
       {
+        cardClickAreas[x, y] = Instantiate(ClickAreaTemplate, this.transform).GetComponent<ClickArea>();
+
+        cardClickAreas[x, y].transform.localPosition = new Vector3(
+          (-(Width - 1) / 2f + x) * GridCellSize.x,
+          ((LineLength + CheckpointLength - 1) / 2f - y) * GridCellSize.y,
+          -2
+        );
+
+        cardClickAreas[x, y].transform.localScale = new Vector3(GridCellSize.x, GridCellSize.y, 1);
+
+        var input_cell = new Vector2Int(x, y);
+        cardClickAreas[x, y].GetComponent<ClickArea>().callback = () => ProcessInput(input_cell);
+
+        cardClickAreas[x, y].Enable(false);
+
         if (y < CheckpointLength)
         {
           if (Random.value > 0.25f) continue;
@@ -100,12 +133,20 @@ public class Board : MonoBehaviour
   {
     if (Random.value > 0.4f) return;
     var name = PickCitizenCard();
-    cards[x, LineLength + CheckpointLength - 1] = GameManager.gm.MakeCard(name, gameObject);
+    CreateCard(x, LineLength + CheckpointLength - 1, name);
 
     await UpdatePosition(cards[x, LineLength + CheckpointLength - 1], Width, LineLength + CheckpointLength, 9 - x, false);
     await Util.Seconds(0.1f * LineLength);
     await UpdatePosition(cards[x, LineLength + CheckpointLength - 1], Width, LineLength + CheckpointLength - 1, 9 - x, true);
     await UpdatePosition(cards[x, LineLength + CheckpointLength - 1], x, LineLength + CheckpointLength - 1, 0, true);
+  }
+
+  public void CreateCard(int x, int y, string name)
+  {
+    cards[x, y] = GameManager.gm.MakeCard(name, gameObject);
+    cards[x, y].board = this;
+
+    var _ = UpdatePosition(cards[x, y], x, y, 0, false);
   }
 
   void ResolveStep(StepState[,] done, int x, int y)
@@ -197,12 +238,24 @@ public class Board : MonoBehaviour
 
   bool ResolveCollision(int fromX, int fromY, Card enter, int toX, int toY, Card stand)
   {
-    if (enter.Has(CardTrait.Document) && stand.Has(CardTrait.Police))
+    if (enter.Has(CardTrait.Alive) && stand.Has(CardTrait.Anthrax))
+    {
+      DestroyCard(toX, toY, stand, toX, toY);
+      DestroyCard(fromX, fromY, enter, toX, toY);
+      return true;
+    }
+    else if (enter.Has(CardTrait.Anthrax) && stand.Has(CardTrait.Police))
+    {
+      DestroyCard(toX, toY, stand, toX, toY);
+      DestroyCard(fromX, fromY, enter, toX, toY);
+      return true;
+    }
+    else if (stand.Has(CardTrait.Police))
     {
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
     }
-    else if (enter.Has(CardTrait.Police) && stand.Has(CardTrait.Document))
+    else if (enter.Has(CardTrait.Police))
     {
       DestroyCard(toX, toY, stand, toX, toY);
       MoveCard(fromX, fromY, enter, toX, toY);
@@ -225,7 +278,7 @@ public class Board : MonoBehaviour
     await UpdatePosition(card, toX, toY, 0, true);
   }
 
-  async Task UpdatePosition(Card card, int x, int y, int z, bool animate)
+  public async Task UpdatePosition(Card card, int x, int y, float z, bool animate)
   {
     var to = new Vector3(
       (-(Width - 1) / 2f + x) * GridCellSize.x,
@@ -250,6 +303,60 @@ public class Board : MonoBehaviour
     await UpdatePosition(card, toX, toY, 1, true);
 
     Destroy(card.gameObject);
+  }
+
+  public void Play(ActionCard action)
+  {
+    this.playing = action;
+    this.playing_index = 0;
+    this.UpdateInput();
+  }
+
+  private void UpdateInput()
+  {
+    if (this.playing_index == this.playing.arguments.Length)
+    {
+      var action = this.playing;
+      this.playing = null;
+      action.Apply(this);
+      UpdateClickAreas(ActionCardArgument.None);
+    }
+    else
+    {
+      var argument = this.playing.arguments[this.playing_index];
+      UpdateClickAreas(argument);
+    }
+  }
+
+  private void UpdateClickAreas(ActionCardArgument arg)
+  {
+    for (int y = 0; y < LineLength + CheckpointLength; ++y)
+    {
+      rowClickAreas[y].Enable(arg == ActionCardArgument.Row);
+
+      for (int x = 0; x < Width; ++x)
+      {
+        if (arg == ActionCardArgument.Cell)
+        {
+          cardClickAreas[x, y].Enable(true);
+        }
+        else if (arg == ActionCardArgument.EmptyCell)
+        {
+          cardClickAreas[x, y].Enable(cards[x, y] == null);
+        }
+        else
+        {
+          cardClickAreas[x, y].Enable(false);
+        }
+      }
+    }
+  }
+
+  public void ProcessInput(System.Object value)
+  {
+    this.playing.values[this.playing_index] = value;
+    this.playing_index += 1;
+    this.UpdateInput();
   }
 
   private static bool MatchCollision(Card enter, Card stand, CardTrait one, CardTrait two)
