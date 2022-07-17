@@ -14,6 +14,8 @@ public class PeopleManager : MonoBehaviour
 
     public bool stillWalking;
 
+    float movingStartTime;
+
 
     // Start is called before the first frame update
     void Awake()
@@ -24,8 +26,11 @@ public class PeopleManager : MonoBehaviour
 
     public void MoveLine()
     {
+        movingStartTime = Time.time;
+        stillWalking = true;
+
         SpawnPerson();
-        StartWalking();
+        SetAllWalking(true);
     }
 
     public void SpawnPerson()
@@ -60,6 +65,13 @@ public class PeopleManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (stillWalking)
+        {
+            if (movingStartTime + moveDuration <= Time.time)
+            {
+                stillWalking = false;
+                SetAllWalking(false);
+            }
+        }
     }
 }

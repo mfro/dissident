@@ -13,7 +13,7 @@ public class WalkingManController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _anim = GetComponent<Animator>();
+        _anim = GetComponentInChildren<Animator>();
     }
 
     // Update is called once per frame
@@ -32,6 +32,7 @@ public class WalkingManController : MonoBehaviour
             return;
         }
         moving = walking;
+        if (!_anim) { _anim = GetComponentInChildren<Animator>(); }
         _anim.SetBool("Walking", moving);
     }
 
