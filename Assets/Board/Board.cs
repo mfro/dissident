@@ -123,6 +123,8 @@ public class Board : MonoBehaviour
 
   void ResolveStep()
   {
+        GameManager.gm.PlaySound(GameManager.SoundEffects.peopleShuffle);
+
     var done = new StepState[Width, LineLength + CheckpointLength];
 
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
@@ -150,7 +152,9 @@ public class Board : MonoBehaviour
 
   string PickCitizenCard()
   {
-    var names = new string[] { "passport", "id", "luggage", "fingerprints" };
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
+
+        var names = new string[] { "passport", "id", "luggage", "fingerprints" };
 
     var name = names[Random.Range(0, names.Length)];
     var fake = Random.value > 0.6f;
@@ -180,7 +184,9 @@ public class Board : MonoBehaviour
 
   void ResolveStep(StepState[,] done, int x, int y)
   {
-    if (done[x, y] != StepState.Waiting) return;
+        GameManager.gm.PlaySound(GameManager.SoundEffects.peopleShuffle);
+
+        if (done[x, y] != StepState.Waiting) return;
 
     var card = cards[x, y];
     if (!card)
