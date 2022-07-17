@@ -14,10 +14,12 @@ public class NPCTooltipTrigger : MonoBehaviour
 
     [SerializeField] float awakeDelay = 0.25f;
 
+    private bool stillHovering = false;
+
     IEnumerator DelayedShow()
     {
         yield return new WaitForSeconds(awakeDelay);
-        TooltipSystem.ShowNPC(contentString, nameString);
+        if (stillHovering) TooltipSystem.ShowNPC(contentString, nameString);
     }
 
     private void Hide()
@@ -27,20 +29,20 @@ public class NPCTooltipTrigger : MonoBehaviour
 
     public void OnMouseEnter()
     {
+        stillHovering = true;
         StartCoroutine(DelayedShow());
-        Hide();
     }
 
     public void OnMouseExit()
     {
-        StopCoroutine(DelayedShow());
+        stillHovering = false;
         Hide();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        stillHovering = false;
     }
 
     // Update is called once per frame

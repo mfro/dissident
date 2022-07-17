@@ -13,12 +13,14 @@ public class CardTooltipTrigger : MonoBehaviour
 
     [SerializeField] float awakeDelay = 0.25f;
 
+    private bool stillHovering;
+
     IEnumerator DelayedShow()
     {
         yield return new WaitForSeconds(awakeDelay);
 
         string cardName = card.text.text;
-        TooltipSystem.ShowCard(portrait, effectText, card.traits, card.text.text);
+        if(stillHovering) TooltipSystem.ShowCard(portrait, effectText, card.traits, card.text.text);
     }
 
     private void Hide()
@@ -28,13 +30,13 @@ public class CardTooltipTrigger : MonoBehaviour
 
     public void OnMouseEnter()
     {
+        stillHovering = true;
         StartCoroutine(DelayedShow());
-        Hide();
     }
 
     public void OnMouseExit()
     {
-        StopCoroutine(DelayedShow());
+        stillHovering = false;
         Hide();
     }
 
@@ -42,6 +44,7 @@ public class CardTooltipTrigger : MonoBehaviour
     void Awake()
     {
         card = GetComponent<Card>();
+        stillHovering = false;
     }
 
     // Update is called once per frame
