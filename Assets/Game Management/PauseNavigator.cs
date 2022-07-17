@@ -7,19 +7,23 @@ using UnityEngine.SceneManagement;
 public class PauseNavigator : MonoBehaviour
 {
     bool paused = false;
-    public GameObject pauseCanvas;
-    public GameObject pauseMenu;
-    public GameObject pauseSettings;
+    public GameObject pauseCanvas, pauseMenu, pauseSettings;
 
-    Slider volumeSlider;
+    public Slider masterVolumeSlider, musicVolumeSlider, effectsVolumeSlider;
 
     // Start is called before the first frame update
     void Start()
     {
         pauseCanvas.SetActive(false);
 
-        volumeSlider = pauseSettings.GetComponentInChildren<Slider>();
-        volumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
+        masterVolumeSlider.value = GameManager.gm.masterVolume;
+        masterVolumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
+
+        musicVolumeSlider.value = GameManager.gm.musicVolume;
+        musicVolumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
+
+        effectsVolumeSlider.value = GameManager.gm.effectsVolume;
+        effectsVolumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
     }
 
     // Update is called once per frame
@@ -67,6 +71,8 @@ public class PauseNavigator : MonoBehaviour
 
     void UpdateVolume()
     {
-        GameManager.gm.masterVolume = volumeSlider.value;
+        GameManager.gm.masterVolume = masterVolumeSlider.value;
+        GameManager.gm.musicVolume = musicVolumeSlider.value;
+        GameManager.gm.effectsVolume = effectsVolumeSlider.value;
     }
 }

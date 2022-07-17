@@ -9,16 +9,21 @@ public class MenuNavigator : MonoBehaviour
 {
     public GameObject mainScreen, tutorialScreen, settingsScreen, creditsScreen;
 
-    Slider masterVolumeSlider;
+    public Slider masterVolumeSlider, musicVolumeSlider, effectsVolumeSlider;
 
     // Start is called before the first frame update
     void Start()
     {
         GoToMain();
 
-        masterVolumeSlider = settingsScreen.GetComponentInChildren<Slider>();
         masterVolumeSlider.value = GameManager.gm.masterVolume;
         masterVolumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
+
+        musicVolumeSlider.value = GameManager.gm.musicVolume;
+        musicVolumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
+
+        effectsVolumeSlider.value = GameManager.gm.effectsVolume;
+        effectsVolumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
     }
 
     // Update is called once per frame
@@ -84,5 +89,7 @@ public class MenuNavigator : MonoBehaviour
     void UpdateVolume()
     {
         GameManager.gm.masterVolume = masterVolumeSlider.value;
+        GameManager.gm.musicVolume = musicVolumeSlider.value;
+        GameManager.gm.effectsVolume = effectsVolumeSlider.value;
     }
 }
