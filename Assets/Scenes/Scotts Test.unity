@@ -391,5 +391,9 @@ PrefabInstance:
       propertyPath: portraitRenderer
       value: 
       objectReference: {fileID: 5057171829826964146, guid: d60ec4346f185c444ae98ca9fad92f33, type: 3}
+    - target: {fileID: 5057171829826964147, guid: d60ec4346f185c444ae98ca9fad92f33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.03125
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d60ec4346f185c444ae98ca9fad92f33, type: 3}

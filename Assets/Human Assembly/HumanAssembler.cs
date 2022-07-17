@@ -48,6 +48,7 @@ public class HumanAssembler : MonoBehaviour
         #region Create needed children on the Human Portrait object
         iter = 0;
         background = CreateChild("Background");
+        background.transform.position = new Vector3(0, -1.03125f, 0) + background.transform.position;
         body = CreateChild("Body");
         clothes = CreateChild("Clothes");
         if (includeHead)
