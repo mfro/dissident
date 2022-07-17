@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     else
     {
       // GameManager.gm.Start();
-      Destroy(this);
+      Destroy(this.gameObject);
       return;
     }
 
