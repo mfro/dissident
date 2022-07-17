@@ -26,6 +26,9 @@ public abstract class ActionCard : MonoBehaviour
   void OnMouseDown()
   {
     var card = this.GetComponent<Card>();
-    card.board.Play(this);
+    if (card.board.actionSystem.CurrentActions > 0)
+    {
+      card.board.Play(this);
+    }
   }
 }
