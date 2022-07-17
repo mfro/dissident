@@ -23,6 +23,16 @@ public class ActionSystem : MonoBehaviour
         AdjustActions(maxActions - currentActions);
     }
 
+    public int GetCurrentActions()
+    {
+        return currentActions;
+    }
+
+    public int GetMaxActions()
+    {
+        return maxActions;
+    }
+
     private void UpdateUI()
     {
         label.text = currentActions.ToString() + " / " + maxActions.ToString();
