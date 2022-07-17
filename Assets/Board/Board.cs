@@ -178,8 +178,6 @@ public class Board : MonoBehaviour
     if (toX < 0 || toX >= Width || toY < 0 || toY >= LineLength + CheckpointLength)
       return false;
 
-    Debug.Log($"{fromX} {fromY} -> {toX} {toY} {done[toX, toY]}");
-
     if (done[toX, toY] == StepState.Doing)
       return false;
 
@@ -199,8 +197,6 @@ public class Board : MonoBehaviour
 
   bool ResolveCollision(int fromX, int fromY, Card enter, int toX, int toY, Card stand)
   {
-    Debug.Log($"collide {enter.name} into {stand.name}");
-
     if (enter.Has(CardTrait.Document) && stand.Has(CardTrait.Police))
     {
       DestroyCard(fromX, fromY, enter, toX, toY);

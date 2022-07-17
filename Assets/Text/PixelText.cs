@@ -28,10 +28,10 @@ public class PixelText : MonoBehaviour
 
   private const string UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   private const string LOWER = "abcdefghijklmnopqrstuvwxyz";
-  private const string OTHER = "0123456789.,!?'&()-";
-  private static Sprite[] upper;
-  private static Sprite[] lower;
-  private static Sprite[] other;
+  private const string OTHER = "0123456789.,!?'&()/-";
+  private Sprite[] upper;
+  private Sprite[] lower;
+  private Sprite[] other;
 
   private static Dictionary<char, int> kerning = new Dictionary<char, int>
   {

@@ -219,7 +219,7 @@ MonoBehaviour:
   traits: 
   facing: 0
   counter: 0
-  MoveAnimationTime: 0.25
+  MoveAnimationTime: 0.5
 --- !u!1001 &4229544919791164884
 PrefabInstance:
   m_ObjectHideFlags: 0

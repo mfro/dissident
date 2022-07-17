@@ -34,7 +34,8 @@ public class Card : MonoBehaviour
 
     var delta = (to - p0);
     delta.z = 0;
-    var duration = MoveAnimationTime * delta.magnitude;
+    // var duration = MoveAnimationTime * delta.magnitude;
+    var duration = MoveAnimationTime;
     // Debug.Log($"{name} {(to - p0).magnitude} {duration} {MoveAnimationTime} {p0} {to}");
 
     while (Time.time < t0 + duration)
