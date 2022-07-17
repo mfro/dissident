@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class TooltipTrigger : MonoBehaviour
+public class NPCTooltipTrigger : MonoBehaviour
 {
-    [SerializeField] bool isNPC;
 
     [SerializeField] string nameString;
     [Multiline()]
     [SerializeField] string contentString;
-    [SerializeField] Sprite portrait;
     [SerializeField] string[] traits;
 
 
@@ -19,30 +17,12 @@ public class TooltipTrigger : MonoBehaviour
     IEnumerator DelayedShow()
     {
         yield return new WaitForSeconds(awakeDelay);
-
-        if (isNPC)
-        {
-            TooltipSystem.ShowNPC(portrait, contentString, nameString);
-        } 
-        else
-        {
-            TooltipSystem.ShowCard(portrait, contentString, traits, nameString);
-        }
-
+        TooltipSystem.ShowNPC(contentString, nameString);
     }
 
     private void Hide()
     {
-
-        if(isNPC)
-        {
-            TooltipSystem.HideNPC();
-        }
-        else
-        {
-            TooltipSystem.HideCard();
-        }
-
+        TooltipSystem.HideNPC();
     }
 
     public void OnMouseEnter()

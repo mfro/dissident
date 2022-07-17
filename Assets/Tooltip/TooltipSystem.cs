@@ -18,9 +18,9 @@ public class TooltipSystem : MonoBehaviour
         current.tooltipCard.gameObject.SetActive(false);
     }
 
-    public static void ShowNPC(Sprite portrait, string content, string name)
+    public static void ShowNPC(string content, string name)
     {
-        current.tooltipNPC.Configure(portrait, content, name);
+        current.tooltipNPC.Configure(content, name);
         current.tooltipNPC.gameObject.SetActive(true);
     }
 
@@ -29,7 +29,7 @@ public class TooltipSystem : MonoBehaviour
         current.tooltipNPC.gameObject.SetActive(false);
     }
 
-    public static void ShowCard(Sprite portrait, string content, string[] traits, string name)
+    public static void ShowCard(Sprite portrait, string content, List<CardTrait> traits, string name)
     {
         current.tooltipCard.Configure(portrait, content, traits, name);
         current.tooltipCard.gameObject.SetActive(true);
