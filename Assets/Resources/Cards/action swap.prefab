@@ -13,7 +13,7 @@ PrefabInstance:
       objectReference: {fileID: 21300000, guid: b5a1e67669f57ca499a8467807292b7c, type: 3}
     - target: {fileID: -2760985864941044381, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: effectText
-      value: Swaps 2 cards on the field
+      value: Swaps 2 cards of the same type on the field.
       objectReference: {fileID: 0}
     - target: {fileID: 2911932555360125913, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: m_IsActive
