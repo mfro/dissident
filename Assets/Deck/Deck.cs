@@ -5,7 +5,7 @@ using UnityEngine;
 public class Deck : MonoBehaviour
 {
 
-    [SerializeField] private List<Card> allCards;
+    [SerializeField] public List<Card> allCards;
 
     [SerializeField] Sprite[] deckSprites;
 
