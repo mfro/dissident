@@ -7,12 +7,18 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public static GameObject[] CardPrefabs;
+    public AudioSource effectMaker;
+    AudioSource musicMaker;
 
     public static GameManager gm;
     public bool visibleMouse = true;
 
     [Range(0f, 1f)]
     public float masterVolume = 0.5f;
+    [Range(0f, 1f)]
+    public float musicVolume = 0.5f;
+    [Range(0f, 1f)]
+    public float effectsVolume = 0.5f;
 
     [SerializeField]
     TextAsset maleNameFile;
@@ -27,6 +33,8 @@ public class GameManager : MonoBehaviour
     public string[] femaleNames;
     [HideInInspector]
     public string[] lastNames;
+
+    public bool playGuardAnnouncement = false;
 
     void Awake()
   {
@@ -51,11 +59,18 @@ public class GameManager : MonoBehaviour
         maleNames = ParseFile(maleNameFile);
         femaleNames = ParseFile(femaleNameFile);
         lastNames = ParseFile(lastNameFile);
+        musicMaker = this.GetComponent<AudioSource>();
     }
 
     private void Update()
     {
-        AudioListener.volume = masterVolume;
+        UpdateVolumes();
+
+        if (playGuardAnnouncement)
+        {
+            playGuardAnnouncement = false;
+            PlaySound(SoundEffects.guardAnnouncement);
+        }
     }
 
     private string[] ParseFile(TextAsset file)
@@ -77,6 +92,76 @@ public class GameManager : MonoBehaviour
 
     public void UpdateMasterVolume(float value)
     {
-        AudioListener.volume = masterVolume = value;
+        masterVolume = value;
+        UpdateVolumes();
+    }
+
+    public void UpdateMusicVolume(float value)
+    {
+        musicVolume = value;
+        UpdateVolumes();
+    }
+
+    public void UpdateEffectsVolume(float value)
+    {
+        effectsVolume = value;
+        UpdateVolumes();
+    }
+
+    void UpdateVolumes()
+    {
+        AudioListener.volume = masterVolume;
+        musicMaker.volume = musicVolume;
+        effectMaker.volume = effectsVolume;
+    }
+
+    public enum SoundEffects
+    {
+        cardInspect, cardShuffle, guardAnnouncement, papersAccept, papersReject, peopleShuffle
+    }
+
+    public void PlaySound(SoundEffects effect)
+    {
+        switch (effect)
+        {
+            case SoundEffects.cardInspect:
+                effectMaker.PlayOneShot(FindEffect("Audio/Effects/Card Noises/Card Inspect"));
+                break;
+
+            case SoundEffects.cardShuffle:
+                effectMaker.PlayOneShot(FindEffect("Audio/Effects/Card Noises/Card Shuffle"));
+                break;
+
+            case SoundEffects.guardAnnouncement:
+                effectMaker.PlayOneShot(FindEffect("Audio/Effects/Guard Noises/Guard Announcement"));
+                break;
+
+            case SoundEffects.peopleShuffle:
+                effectMaker.PlayOneShot(FindEffect("Audio/Effects/People Noises/People Shuffling"));
+                break;
+
+            case SoundEffects.papersAccept:
+                effectMaker.PlayOneShot(FindEffect("Audio/Effects/Other Noises/Papers Accepted"));
+                break;
+
+            case SoundEffects.papersReject:
+                effectMaker.PlayOneShot(FindEffect("Audio/Effects/Other Noises/Papers Rejected"));
+                break;
+        }
+    }
+
+    AudioClip FindEffect(string directory)
+    {
+        if (directory == "")
+        {
+            return null;
+        }
+        object[] loadedAssets = Resources.LoadAll(directory);
+        AudioClip[] list = new AudioClip[loadedAssets.Length];
+        for (int x = 0; x < loadedAssets.Length; x++)
+        {
+            list[x] = (AudioClip)loadedAssets[x];
+        }
+        return list[Random.Range(0, list.Length)];
     }
 }
