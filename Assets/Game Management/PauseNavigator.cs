@@ -43,21 +43,25 @@ public class PauseNavigator : MonoBehaviour
     {
         pauseMenu.SetActive(true);
         pauseSettings.SetActive(false);
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void OnResume()
     {
         TogglePause();
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void OnSettings()
     {
         pauseMenu.SetActive(false);
         pauseSettings.SetActive(true);
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void OnQuit()
     {
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
         SceneManager.LoadScene(1);
     }
 

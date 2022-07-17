@@ -33,30 +33,35 @@ public class MenuNavigator : MonoBehaviour
     public void Play()
     {
         SceneManager.LoadScene(0);
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void GoToMain()
     {
         DisableAll();
         mainScreen.SetActive(true);
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void GoToTutorial()
     {
         DisableAll();
         tutorialScreen.SetActive(true);
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void GoToSettings()
     {
         DisableAll();
         settingsScreen.SetActive(true);
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void GoToCredits()
     {
         DisableAll();
         creditsScreen.SetActive(true);
+        GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 
     public void Quit()
