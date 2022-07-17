@@ -49,3 +49,5 @@ MonoBehaviour:
   CheckpointLength: 2
   LineDelay: 0.2
   GridCellSize: {x: 2, y: 2}
+  rowClickAreas: []
+  ClickAreaTemplate: {fileID: 8800648992700599756, guid: 9373473c90d60b74e9d108c8ca557aea, type: 3}

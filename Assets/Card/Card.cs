@@ -21,6 +21,8 @@ public class Card : MonoBehaviour
 
   public float MoveAnimationTime;
 
+  public Board board;
+
   public bool Has(CardTrait trait)
   {
     return traits.Contains(trait);

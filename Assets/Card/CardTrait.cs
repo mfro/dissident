@@ -8,4 +8,6 @@ public enum CardTrait
   Document,
 
   Suspicious,
+  Anthrax,
+  Alive,
 }

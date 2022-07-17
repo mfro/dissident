@@ -65,7 +65,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5390733618939984451, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: traits.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5390733618939984451, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: traits.Array.data[0]

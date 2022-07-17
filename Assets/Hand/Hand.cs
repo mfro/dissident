@@ -11,12 +11,18 @@ public class Hand : MonoBehaviour
 
   public Card[] cards;
 
+  public Board board;
+
   // Start is called before the first frame update
   void Start()
   {
     cards = InitialCards.Select(name =>
     {
-      return GameManager.gm.MakeCard(name, gameObject);
+      var card = GameManager.gm.MakeCard(name, gameObject);
+
+      card.board = board;
+
+      return card;
     }).ToArray();
 
     for (var i = 0; i < cards.Length; ++i)
