@@ -5,55 +5,72 @@ using UnityEngine.SceneManagement;
 
 public class ScoreLifeSystem : MonoBehaviour
 {
+  private int _scope;
+  private int _currentLives;
 
-    public long score;
-    public int currentLives;
-    public int maxLives;
-
-    [SerializeField] PixelText scoreText;
-    [SerializeField] PixelText livesText;
-    [SerializeField] PixelText gameOverText;
-    [SerializeField] PixelText gameOverScoreText;
-    [SerializeField] PixelText returningToMenuText;
-
-    // Start is called before the first frame update
-    void Awake()
+  public int score
+  {
+    get => _scope;
+    set
     {
-        score = 0;
-        currentLives = maxLives;
-        gameOverText.enabled = false;
-        gameOverScoreText.enabled = false;
-        returningToMenuText.enabled = false;
-
+      _scope = value;
+      scoreText.text = "Score: " + value.ToString();
     }
 
-    private IEnumerator EndGame()
+  }
+  public int currentLives
+  {
+    get => _currentLives;
+    set
     {
-        gameOverText.enabled = true;
-        gameOverText.text = "GAME OVER!";
-        returningToMenuText.enabled = true;
-        gameOverScoreText.text = "Score: " + score.ToString();
-        gameOverScoreText.enabled = true;
+      _currentLives = value;
+      livesText.text = "Lives: " + _currentLives.ToString();
+    }
+  }
 
-        for (int i = 0; i < 5; i++)
-        {
-            int timeLeft = 5 - i;
-            returningToMenuText.text = "Exiting in " + timeLeft.ToString();
-            yield return new WaitForSeconds(1);
-        }
+  public int maxLives;
 
-        SceneManager.LoadScene(0);
+  [SerializeField] PixelText scoreText;
+  [SerializeField] PixelText livesText;
+  [SerializeField] PixelText gameOverText;
+  [SerializeField] PixelText gameOverScoreText;
+  [SerializeField] PixelText returningToMenuText;
+
+  // Start is called before the first frame update
+  void Awake()
+  {
+    score = 0;
+    currentLives = maxLives;
+    gameOverText.enabled = false;
+    gameOverScoreText.enabled = false;
+    returningToMenuText.enabled = false;
+
+  }
+
+  private IEnumerator EndGame()
+  {
+    gameOverText.enabled = true;
+    gameOverText.text = "GAME OVER!";
+    returningToMenuText.enabled = true;
+    gameOverScoreText.text = "Score: " + score.ToString();
+    gameOverScoreText.enabled = true;
+
+    for (int i = 0; i < 5; i++)
+    {
+      int timeLeft = 5 - i;
+      returningToMenuText.text = "Exiting in " + timeLeft.ToString();
+      yield return new WaitForSeconds(1);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        scoreText.text = "Score: " + score.ToString();
-        livesText.text = "Lives: " + currentLives.ToString();
+    SceneManager.LoadScene(0);
+  }
 
-        if(currentLives == 0)
-        {
-            StartCoroutine(EndGame());
-        }
+  // Update is called once per frame
+  void Update()
+  {
+    if (currentLives == 0)
+    {
+      StartCoroutine(EndGame());
     }
+  }
 }

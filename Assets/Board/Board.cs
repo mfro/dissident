@@ -35,6 +35,7 @@ public class Board : MonoBehaviour
   public ActionSystem actionSystem;
   public Hand hand;
   public GuardController guard;
+  public ScoreLifeSystem score;
 
   public ActionCard playing;
   public int playing_index;
@@ -155,10 +156,12 @@ public class Board : MonoBehaviour
 
     if (clearRows.Any(o => o))
     {
+      score.currentLives -= 1;
       guard.GuardDisapproval();
     }
     else
     {
+      score.score += 1;
       guard.GuardApproval();
     }
 
@@ -313,12 +316,14 @@ public class Board : MonoBehaviour
   {
     if (enter.Has(CardTrait.Alive) && stand.Has(CardTrait.Anthrax))
     {
+      clearRows[toY] = true;
       DestroyCard(toX, toY, stand, toX, toY);
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
     }
     else if (enter.Has(CardTrait.Anthrax) && stand.Has(CardTrait.Police))
     {
+      clearRows[toY] = true;
       DestroyCard(toX, toY, stand, toX, toY);
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
@@ -400,6 +405,15 @@ public class Board : MonoBehaviour
     this.playing = action;
     this.playing.GetComponent<Card>().highlight = true;
     this.playing_index = 0;
+    this.UpdateInput();
+  }
+
+  public void Cancel()
+  {
+    actionSystem.CurrentActions += 1;
+
+    this.playing.GetComponent<Card>().highlight = true;
+    this.playing = null;
     this.UpdateInput();
   }
 
