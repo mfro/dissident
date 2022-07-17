@@ -8,6 +8,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -2760985864941044381, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: 4a3757797ee9e474987073883582b4b7, type: 3}
+    - target: {fileID: -2760985864941044381, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: effectText
       value: Dirty Passport. If confiscated by guard, will eliminate the citizen.
       objectReference: {fileID: 0}

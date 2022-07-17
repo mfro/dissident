@@ -12,6 +12,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2419969612802139100}
     - target: {fileID: -2760985864941044381, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
+      propertyPath: portrait
+      value: 
+      objectReference: {fileID: 21300000, guid: abb7e537ac5b25444963ad2f74e67ca5, type: 3}
+    - target: {fileID: -2760985864941044381, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: effectText
       value: Swaps two player entire rows.
       objectReference: {fileID: 0}

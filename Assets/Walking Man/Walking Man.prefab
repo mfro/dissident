@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3761408460279588284}
   - component: {fileID: 3761408460279588283}
   - component: {fileID: 5407913549565018404}
+  - component: {fileID: 7887680677256578202}
   m_Layer: 0
   m_Name: Walking Man
   m_TagString: Untagged
@@ -121,3 +122,19 @@ MonoBehaviour:
   movementSpeed: 2
   direction: {x: 0, y: 1, z: 0}
   toggleWalking: 0
+--- !u!114 &7887680677256578202
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3761408460279588282}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e47509d5a7243ef418acb649b6c272af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nameString: George
+  contentString: A smelly guy
+  traits: []
+  awakeDelay: 0.25
