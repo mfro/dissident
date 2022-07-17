@@ -44,6 +44,8 @@ public class Board : MonoBehaviour
 
   private bool[] clearRows;
 
+  private int animations;
+
   PeopleManager peopleManager;
 
   public static (System.Action<Board>, System.Action<Board>)[] levels = {
@@ -128,7 +130,7 @@ public class Board : MonoBehaviour
 
   void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Space))
+    if (Input.GetKeyDown(KeyCode.Space) && animations == 0)
     {
       ResolveStep();
     }
@@ -381,7 +383,9 @@ public class Board : MonoBehaviour
 
     if (animate)
     {
+      animations += 1;
       await card.AnimateMove(to);
+      animations -= 1;
     }
     else
     {
@@ -419,7 +423,7 @@ public class Board : MonoBehaviour
 
   private void UpdateInput()
   {
-    if (this.playing_index == this.playing.arguments.Length)
+    if (this.playing && this.playing_index == this.playing.arguments.Length)
     {
       var action = this.playing;
       var card = action.GetComponent<Card>();
@@ -453,10 +457,14 @@ public class Board : MonoBehaviour
       action.Apply(this);
       UpdateClickAreas((ActionCardArgument.None, (board, o) => false));
     }
-    else
+    else if (this.playing)
     {
       var argument = this.playing.arguments[this.playing_index];
       UpdateClickAreas(argument);
+    }
+    else
+    {
+      UpdateClickAreas((ActionCardArgument.None, (board, o) => false));
     }
   }
 

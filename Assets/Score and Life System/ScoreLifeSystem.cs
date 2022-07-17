@@ -25,6 +25,11 @@ public class ScoreLifeSystem : MonoBehaviour
     {
       _currentLives = value;
       livesText.text = "Lives: " + _currentLives.ToString();
+
+      if (_currentLives == 0 && !gameOverText.gameObject.activeSelf)
+      {
+        StartCoroutine(EndGame());
+      }
     }
   }
 
@@ -41,19 +46,19 @@ public class ScoreLifeSystem : MonoBehaviour
   {
     score = 0;
     currentLives = maxLives;
-    gameOverText.enabled = false;
-    gameOverScoreText.enabled = false;
-    returningToMenuText.enabled = false;
+    gameOverText.gameObject.SetActive(false);
+    gameOverScoreText.gameObject.SetActive(false);
+    returningToMenuText.gameObject.SetActive(false);
 
   }
 
   private IEnumerator EndGame()
   {
-    gameOverText.enabled = true;
+    gameOverText.gameObject.SetActive(true);
     gameOverText.text = "GAME OVER!";
-    returningToMenuText.enabled = true;
+    returningToMenuText.gameObject.SetActive(true);
     gameOverScoreText.text = "Score: " + score.ToString();
-    gameOverScoreText.enabled = true;
+    gameOverScoreText.gameObject.SetActive(true);
 
     for (int i = 0; i < 5; i++)
     {
@@ -63,14 +68,5 @@ public class ScoreLifeSystem : MonoBehaviour
     }
 
     SceneManager.LoadScene(0);
-  }
-
-  // Update is called once per frame
-  void Update()
-  {
-    if (currentLives == 0)
-    {
-      StartCoroutine(EndGame());
-    }
   }
 }
