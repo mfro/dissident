@@ -130,6 +130,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 5057171829178813855, guid: d60ec4346f185c444ae98ca9fad92f33, type: 3}
+      propertyPath: _text
+      value: A Bad Card
+      objectReference: {fileID: 0}
     - target: {fileID: 5057171829200400916, guid: d60ec4346f185c444ae98ca9fad92f33, type: 3}
       propertyPath: m_Name
       value: TooltipSystem

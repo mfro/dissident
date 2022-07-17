@@ -81,7 +81,7 @@ SpriteRenderer:
   m_Size: {x: 3.75, y: 3.75}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!1 &1853286226819703112
@@ -184,6 +184,7 @@ MonoBehaviour:
   _text: A Bad Card
   font: {fileID: 2800000, guid: 23c17043ef92b714aac50968505c9e6e, type: 3}
   alignment: 1
+  MaxWidth: 150
 --- !u!1 &1853286228270846214
 GameObject:
   m_ObjectHideFlags: 0
@@ -231,6 +232,7 @@ MonoBehaviour:
   _text: 'Traits: None'
   font: {fileID: 2800000, guid: 23c17043ef92b714aac50968505c9e6e, type: 3}
   alignment: 1
+  MaxWidth: 0
 --- !u!1 &1853286228344730752
 GameObject:
   m_ObjectHideFlags: 0
@@ -278,6 +280,7 @@ MonoBehaviour:
   _text: Sunny Day
   font: {fileID: 2800000, guid: 23c17043ef92b714aac50968505c9e6e, type: 3}
   alignment: 1
+  MaxWidth: 0
 --- !u!1 &6906750698006776734
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,6 +362,6 @@ SpriteRenderer:
   m_Size: {x: 5, y: 6.875}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0

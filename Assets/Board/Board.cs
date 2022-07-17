@@ -33,8 +33,43 @@ public class Board : MonoBehaviour
   public ActionCard playing;
   public int playing_index;
 
+  public int level;
+
+  public static (System.Action<Board>, System.Action<Board>)[] levels = {
+    (board => {
+      board.CheckpointLength = 1;
+    },
+    board => {
+      board.CreateCard(0, 0, "human guard");
+      board.CreateCard(1, 0, "human guard");
+    }),
+
+    (board => {
+      board.CheckpointLength = 2;
+    },
+    board => {
+      board.CreateCard(0, 0, "human guard");
+      board.CreateCard(1, 0, "human guard");
+      board.CreateCard(3, 1, "human guard");
+      board.CreateCard(4, 1, "human guard");
+    }),
+
+    (board => {
+      board.CheckpointLength = 2;
+    },
+    board => {
+      board.CreateCard(0, 0, "human guard");
+      board.CreateCard(0, 1, "human guard");
+      board.CreateCard(1, 1, "human guard");
+      board.CreateCard(3, 1, "human guard");
+      board.CreateCard(4, 1, "human guard");
+    })
+  };
+
   void Start()
   {
+    levels[level].Item1(this);
+
     cards = new Card[Width, LineLength + CheckpointLength];
 
     rowClickAreas = new ClickArea[LineLength + CheckpointLength];
@@ -66,24 +101,16 @@ public class Board : MonoBehaviour
 
         cardClickAreas[x, y].Enable(false);
 
-        if (y < CheckpointLength)
-        {
-          if (Random.value > 0.25f) continue;
-          cards[x, y] = GameManager.gm.MakeCard("human guard", gameObject);
-          cards[x, y].facing = y == 0 ? CardDirection.Right : CardDirection.Left;
-        }
-        else
+        if (y >= CheckpointLength)
         {
           if (Random.value > 0.4f) continue;
           var name = PickCitizenCard();
-          cards[x, y] = GameManager.gm.MakeCard(name, gameObject);
+          CreateCard(x, y, name);
         }
-
-        if (!cards[x, y]) continue;
-
-        var _ = UpdatePosition(cards[x, y], x, y, 0, false);
       }
     }
+
+    levels[level].Item2(this);
   }
 
   void Update()
@@ -166,26 +193,23 @@ public class Board : MonoBehaviour
 
     if (card.Has(CardTrait.Patrol))
     {
-      var dir = Card.GetValue(card.facing);
-      var wasDone = Clip(x + dir.x, y + dir.y) ? done[x + dir.x, y + dir.y] : StepState.Waiting;
-
-      if (y + dir.y >= CheckpointLength || !ResolveMove(done, x, y, card, x + dir.x, y + dir.y))
+      for (var i = 0; i < 4; ++i)
       {
-        if (Clip(x + dir.x, y + dir.y))
-          done[x + dir.x, y + dir.y] = wasDone;
+        var dir = Card.GetValue(card.facing);
 
-        Vector2Int next;
-
-        while (true)
+        if (Clip(x + dir.x, y + dir.y) && y + dir.y < CheckpointLength)
         {
-          card.facing = Card.NextClockwise(card.facing);
-          next = Card.GetValue(card.facing);
-          if (Clip(x + next.x, y + next.y) && y + next.y < CheckpointLength)
+          var wasDone = done[x + dir.x, y + dir.y];
+
+          if (ResolveMove(done, x, y, card, x + dir.x, y + dir.y))
           {
-            ResolveMove(done, x, y, card, x + next.x, y + next.y);
             break;
           }
+
+          done[x + dir.x, y + dir.y] = wasDone;
         }
+
+        card.facing = Card.NextClockwise(card.facing);
       }
     }
     else if (card.Has(CardTrait.Static))
@@ -252,12 +276,12 @@ public class Board : MonoBehaviour
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
     }
-    else if (stand.Has(CardTrait.Police))
+    else if (stand.Has(CardTrait.Police) && enter.Has(CardTrait.Document))
     {
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
     }
-    else if (enter.Has(CardTrait.Police))
+    else if (enter.Has(CardTrait.Police) && stand.Has(CardTrait.Document))
     {
       DestroyCard(toX, toY, stand, toX, toY);
       MoveCard(fromX, fromY, enter, toX, toY);

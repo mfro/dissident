@@ -105,7 +105,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8938153867721791097, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
       propertyPath: _text
-      value: Luggage
+      value: Prints
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8cb3f63b5d2d5b541bcac3c77d3ae4b3, type: 3}
