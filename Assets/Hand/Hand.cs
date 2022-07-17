@@ -14,9 +14,20 @@ public class Hand : MonoBehaviour
   public Board board;
   public Deck deck;
 
+  public ClickArea deckClick;
+
   // Start is called before the first frame update
   void Start()
   {
+    deckClick.callback = () =>
+    {
+      if (board.actionSystem.CurrentActions > 0)
+      {
+        board.actionSystem.CurrentActions -= 1;
+        Draw1();
+      }
+    };
+
     for (var i = 0; i < 4; ++i)
     {
       Draw1();

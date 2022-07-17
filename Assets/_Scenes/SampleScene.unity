@@ -672,7 +672,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e65db3dbe1db0f44828ee326e2219cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxActions: 5
+  maxActions: 3
   label: {fileID: 1928575618}
 --- !u!4 &2035637348
 Transform:
@@ -784,6 +784,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: hand
       objectReference: {fileID: 0}
+    - target: {fileID: 5839677397880528216, guid: 356662b0957a8c744887f3a295372d57, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839677397880528216, guid: 356662b0957a8c744887f3a295372d57, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.755
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839677397880528216, guid: 356662b0957a8c744887f3a295372d57, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5839677397880528216, guid: 356662b0957a8c744887f3a295372d57, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8136931301788725448, guid: 356662b0957a8c744887f3a295372d57, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 356662b0957a8c744887f3a295372d57, type: 3}
@@ -804,7 +820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6449922255861910953, guid: 88e2690a02d3dcc4496946dbdefb35c9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6449922255861910953, guid: 88e2690a02d3dcc4496946dbdefb35c9, type: 3}
       propertyPath: m_LocalPosition.y

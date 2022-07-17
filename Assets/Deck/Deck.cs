@@ -63,6 +63,9 @@ public class Deck : MonoBehaviour
 
   public string DrawCard()
   {
+    if (deck.Count == 0 && discard.Count > 0)
+      ShuffleDiscard();
+
     if (!deck.TryDequeue(out var name))
       return null;
 
