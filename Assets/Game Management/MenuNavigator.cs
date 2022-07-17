@@ -11,18 +11,14 @@ public class MenuNavigator : MonoBehaviour
 
     Slider masterVolumeSlider;
 
-    Button lastSelected;
-    EventSystem _es;
-
     // Start is called before the first frame update
     void Start()
     {
         GoToMain();
 
-        _es = EventSystem.current;
-
         masterVolumeSlider = settingsScreen.GetComponentInChildren<Slider>();
         masterVolumeSlider.value = GameManager.gm.masterVolume;
+        masterVolumeSlider.onValueChanged.AddListener(delegate { UpdateVolume(); });
     }
 
     // Update is called once per frame
@@ -32,13 +28,6 @@ public class MenuNavigator : MonoBehaviour
         {
             GoToMain();
         }
-
-        if (!_es.currentSelectedGameObject)
-        {
-            lastSelected.Select();
-        }
-
-        lastSelected = _es.currentSelectedGameObject.GetComponent<Button>();
     }
 
     public void Play()
@@ -50,29 +39,24 @@ public class MenuNavigator : MonoBehaviour
     {
         DisableAll();
         mainScreen.SetActive(true);
-
-        mainScreen.transform.Find("Play").GetComponent<Button>().Select();
     }
 
     public void GoToTutorial()
     {
         DisableAll();
         tutorialScreen.SetActive(true);
-        tutorialScreen.transform.Find("Back").GetComponent<Button>().Select();
     }
 
     public void GoToSettings()
     {
         DisableAll();
         settingsScreen.SetActive(true);
-        settingsScreen.transform.Find("Back").GetComponent<Button>().Select();
     }
 
     public void GoToCredits()
     {
         DisableAll();
         creditsScreen.SetActive(true);
-        creditsScreen.transform.Find("Back").GetComponent<Button>().Select();
     }
 
     public void Quit()
@@ -92,8 +76,8 @@ public class MenuNavigator : MonoBehaviour
         creditsScreen.SetActive(false);
     }
 
-    public void OnVolumeChanged(float value)
+    void UpdateVolume()
     {
-        GameManager.gm.UpdateMasterVolume(value);
+        GameManager.gm.masterVolume = masterVolumeSlider.value;
     }
 }
