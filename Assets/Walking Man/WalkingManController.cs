@@ -12,6 +12,9 @@ public class WalkingManController : MonoBehaviour
 
     Animator _anim;
 
+    [HideInInspector]
+    public PeopleManager myManager;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -32,6 +35,10 @@ public class WalkingManController : MonoBehaviour
     public void WalkForward()
     {
         positionInYPoints++;
+        if (positionInYPoints >= yStoppingPositions.Length) 
+        {
+            myManager.KillMan(this.gameObject);
+        }
         SetWalking(true);
     }
 
