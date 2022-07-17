@@ -9,6 +9,7 @@ public class GameManager : MonoBehaviour
     public static GameObject[] CardPrefabs;
     public AudioSource effectMaker;
     AudioSource musicMaker;
+    AudioSource ambianceMaker;
 
     public static GameManager gm;
     public bool visibleMouse = true;
@@ -60,6 +61,7 @@ public class GameManager : MonoBehaviour
         femaleNames = ParseFile(femaleNameFile);
         lastNames = ParseFile(lastNameFile);
         musicMaker = this.GetComponent<AudioSource>();
+        ambianceMaker = Camera.main.GetComponent<AudioSource>();
     }
 
     private void Update()
@@ -113,6 +115,7 @@ public class GameManager : MonoBehaviour
         AudioListener.volume = masterVolume;
         musicMaker.volume = musicVolume;
         effectMaker.volume = effectsVolume;
+        if (ambianceMaker) { ambianceMaker.volume = effectsVolume; }
     }
 
     public enum SoundEffects
