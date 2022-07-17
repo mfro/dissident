@@ -28,7 +28,7 @@ public abstract class ActionCard : MonoBehaviour
     var card = this.GetComponent<Card>();
     if (card.board.actionSystem.CurrentActions > 0)
     {
-      card.board.Play(this);
+      card.hand.Play(this);
     }
   }
 }

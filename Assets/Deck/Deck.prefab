@@ -98,10 +98,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   allCards:
-  - {fileID: 2419969612802139100, guid: 3e86c35d18bf7cf4eb61d082e46d72d0, type: 3}
-  - {fileID: 2419969612802139100, guid: 685b346f33c6a6f4e8f7d1d24a735838, type: 3}
-  - {fileID: 2419969612802139100, guid: b7081abae64ede24ab37fd2d0dae3da1, type: 3}
-  - {fileID: 2419969612802139100, guid: 81e189c763d195d41aa01cf2e6f8287a, type: 3}
+  - action anthrax
+  - action anthrax
+  - action reorder
+  - action reorder
+  - action reorder
+  - action reorder
+  - action obstruct
+  - action obstruct
+  - action obstruct
+  - action obstruct
+  - action obstruct
+  - action obstruct
+  - action swap
+  - action swap
+  - action swap
+  - action swap
   deckSprites:
   - {fileID: 21300000, guid: ec6200b1d6cbb6042841458b302d3576, type: 3}
   - {fileID: 21300000, guid: a37372d80d8ebe84bbffdc81a458b2c9, type: 3}

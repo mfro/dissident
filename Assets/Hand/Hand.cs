@@ -9,23 +9,46 @@ public class Hand : MonoBehaviour
   public string[] InitialCards;
   public float CardSpacing;
 
-  public Card[] cards;
+  public List<Card> cards;
 
   public Board board;
+  public Deck deck;
 
   // Start is called before the first frame update
   void Start()
   {
-    cards = InitialCards.Select(name =>
+    for (var i = 0; i < 4; ++i)
     {
-      var card = GameManager.gm.MakeCard(name, gameObject);
+      Draw1();
+    }
+  }
 
-      card.board = board;
+  public void Draw1()
+  {
+    var name = deck.DrawCard();
+    if (name == null) return;
 
-      return card;
-    }).ToArray();
+    var card = GameManager.gm.MakeCard(name, gameObject);
+    card.board = board;
+    card.hand = this;
+    cards.Add(card);
 
-    for (var i = 0; i < cards.Length; ++i)
+    for (var i = 0; i < cards.Count; ++i)
+    {
+      var _ = UpdatePosition(cards[i], i, i, true);
+    }
+  }
+
+  public void Play(ActionCard action)
+  {
+    var card = action.GetComponent<Card>();
+    cards.Remove(card);
+    card.board.Play(action);
+
+    deck.DiscardCard(card.name);
+    Destroy(card.gameObject);
+
+    for (var i = 0; i < cards.Count; ++i)
     {
       var _ = UpdatePosition(cards[i], i, i, true);
     }
@@ -33,9 +56,9 @@ public class Hand : MonoBehaviour
 
   async Task UpdatePosition(Card card, int index, int z, bool animate)
   {
-    var range = cards.Length * CardSpacing;
+    var range = cards.Count * CardSpacing;
     var to = new Vector3(
-      (-(cards.Length - 1) / 2f + index) * CardSpacing,
+      (-(cards.Count - 1) / 2f + index) * CardSpacing,
       0,
       z
     );

@@ -1,82 +1,84 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Deck : MonoBehaviour
 {
+  [SerializeField] public List<string> allCards;
 
-    [SerializeField] public List<Card> allCards;
+  [SerializeField] Sprite[] deckSprites;
 
-    [SerializeField] Sprite[] deckSprites;
+  private Queue<string> deck;
+  private List<string> discard;
 
-    private Stack<Card> currentDeck;
-    private Stack<Card> currentDiscard;
+  private SpriteRenderer sr;
 
-    private SpriteRenderer sr;
+  // Start is called before the first frame update
+  void Start()
+  {
+    sr = GetComponent<SpriteRenderer>();
 
-    public void ShuffleEntireDeck()
+    deck = new Queue<string>();
+    discard = new List<string>();
+
+    Shuffle(allCards.ToList());
+
+    Debug.Assert(deck.Count == allCards.Count);
+    UpdateSprite();
+  }
+
+  //   public int GetDeckSize()
+  //   {
+  //     return currentDeck.Count;
+  //   }
+
+  //   public int GetDiscardSize()
+  //   {
+  //     return currentDiscard.Count;
+  //   }
+
+  private void Shuffle(List<string> pool)
+  {
+    while (pool.Count > 0)
     {
-        currentDeck.Clear();
-        currentDiscard.Clear();
+      int index = Random.Range(0, pool.Count);
 
-        List<Card> tempCards = new List<Card>(allCards);
-
-        while(tempCards.Count > 0)
-        {
-            int index = Random.Range(0, tempCards.Count);
-
-            currentDeck.Push(tempCards[index]);
-            tempCards.RemoveAt(index);
-        }
-
-        Debug.Assert(currentDeck.Count == allCards.Count);
-        UpdateSprite();
+      deck.Enqueue(pool[index]);
+      pool.RemoveAt(index);
     }
+  }
 
-    // Start is called before the first frame update
-    void Start()
+  public void ShuffleDiscard()
+  {
+    GameManager.gm.PlaySound(GameManager.SoundEffects.cardShuffle);
+
+    Shuffle(discard);
+  }
+
+  public void DiscardCard(string name)
+  {
+    discard.Add(name);
+  }
+
+  public string DrawCard()
+  {
+    if (!deck.TryDequeue(out var name))
+      return null;
+
+    UpdateSprite();
+    return name;
+  }
+
+  public void UpdateSprite()
+  {
+    if (deck.Count >= deckSprites.Length)
     {
-        currentDeck = new Stack<Card>();
-        currentDiscard = new Stack<Card>();
-        sr = GetComponent<SpriteRenderer>();
-        ShuffleEntireDeck();
+      sr.sprite = deckSprites[deckSprites.Length - 1];
     }
-
-    public int GetDeckSize()
+    else
     {
-        return currentDeck.Count;
+      sr.sprite = deckSprites[deck.Count];
     }
-
-    public int GetDiscardSize()
-    {
-        return currentDiscard.Count;
-    }
-
-    public void DiscardCard(Card card)
-    {
-        currentDiscard.Push(card);
-    }
-
-    public Card DrawCard()
-    {
-        if (currentDeck.Count == 0)
-        {
-            return null;
-        }
-
-        UpdateSprite();
-        return currentDeck.Pop();
-    }
-
-    public void UpdateSprite()
-    {
-        if(currentDeck.Count >= deckSprites.Length)
-        {
-            sr.sprite = deckSprites[deckSprites.Length - 1];
-        } 
-        else
-        {
-            sr.sprite = deckSprites[currentDeck.Count];
-        }
-    }
+  }
 }

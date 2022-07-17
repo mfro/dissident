@@ -123,6 +123,17 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!114 &12899251 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3194892384885347389, guid: 356662b0957a8c744887f3a295372d57, type: 3}
+  m_PrefabInstance: {fileID: 3194892384150862266}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2af33345190ceff498b2bd171dc9c4ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &141751764
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -621,6 +632,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 8861390806960325725, guid: 0fbb02a5706ff0e4c88aa441de18c367, type: 3}
   m_PrefabInstance: {fileID: 1928575616}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2026733128 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6449922255861910954, guid: 88e2690a02d3dcc4496946dbdefb35c9, type: 3}
+  m_PrefabInstance: {fileID: 6449922256221210960}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c87ba29ad3f9d1f4b864d38921a55506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2035637346
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,6 +752,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3194892384885347389, guid: 356662b0957a8c744887f3a295372d57, type: 3}
+      propertyPath: deck
+      value: 
+      objectReference: {fileID: 2026733128}
     - target: {fileID: 3194892384885347389, guid: 356662b0957a8c744887f3a295372d57, type: 3}
       propertyPath: board
       value: 
@@ -869,6 +895,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7699592479036311297, guid: 40956b01e2803574d86701a33f08d0db, type: 3}
+      propertyPath: hand
+      value: 
+      objectReference: {fileID: 12899251}
     - target: {fileID: 7699592479036311297, guid: 40956b01e2803574d86701a33f08d0db, type: 3}
       propertyPath: actionSystem
       value: 

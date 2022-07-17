@@ -22,6 +22,7 @@ public class Card : MonoBehaviour
   public float MoveAnimationTime;
 
   public Board board;
+  public Hand hand;
 
   public bool Has(CardTrait trait)
   {
