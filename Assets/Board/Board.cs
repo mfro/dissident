@@ -38,6 +38,8 @@ public class Board : MonoBehaviour
 
   private bool[] clearRows;
 
+    PeopleManager peopleManager;
+
   public static (System.Action<Board>, System.Action<Board>)[] levels = {
     (board => {
       board.CheckpointLength = 1;
@@ -71,6 +73,8 @@ public class Board : MonoBehaviour
 
   void Start()
   {
+        peopleManager = FindObjectOfType<PeopleManager>();
+
     levels[level].Item1(this);
 
     cards = new Card[Width, LineLength + CheckpointLength];
@@ -129,6 +133,8 @@ public class Board : MonoBehaviour
     GameManager.gm.PlaySound(GameManager.SoundEffects.guardAnnouncement);
 
     GameManager.gm.PlaySound(GameManager.SoundEffects.peopleShuffle);
+
+        peopleManager.MoveLine();
 
     var done = new StepState[Width, LineLength + CheckpointLength];
 

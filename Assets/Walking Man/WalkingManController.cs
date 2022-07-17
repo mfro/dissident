@@ -10,8 +10,6 @@ public class WalkingManController : MonoBehaviour
 
     Animator _anim;
 
-    public bool toggleWalking = false;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -24,11 +22,6 @@ public class WalkingManController : MonoBehaviour
         if (moving)
         {
             transform.position += direction * movementSpeed * Time.deltaTime;
-        }
-        if (toggleWalking)
-        {
-            ToggleWalking();
-            toggleWalking = false;
         }
     }
 
