@@ -44,7 +44,7 @@ public class Board : MonoBehaviour
 
   private bool[] clearRows;
 
-  private int animations;
+  private float lockTime;
 
   PeopleManager peopleManager;
 
@@ -130,8 +130,10 @@ public class Board : MonoBehaviour
 
   void Update()
   {
-    if (Input.GetKeyDown(KeyCode.Space) && animations == 0)
+    if (Input.GetKeyDown(KeyCode.Space) && lockTime < Time.time)
     {
+      lockTime = Time.time + 1f;
+      Debug.Log($"{Time.time} {lockTime}");
       ResolveStep();
     }
   }
@@ -383,9 +385,7 @@ public class Board : MonoBehaviour
 
     if (animate)
     {
-      animations += 1;
       await card.AnimateMove(to);
-      animations -= 1;
     }
     else
     {
