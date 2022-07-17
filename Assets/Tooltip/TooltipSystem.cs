@@ -7,17 +7,18 @@ public class TooltipSystem : MonoBehaviour
 
     private static TooltipSystem current;
 
-    public Tooltip tooltipNPC;
+    //public Tooltip tooltipNPC;
     public Tooltip tooltipCard;
 
     // Start is called before the first frame update
     void Awake()
     {
         current = this;
-        current.tooltipNPC.gameObject.SetActive(false);
+        //current.tooltipNPC.gameObject.SetActive(false);
         current.tooltipCard.gameObject.SetActive(false);
     }
 
+    /**
     public static void ShowNPC(string content, string name)
     {
         current.tooltipNPC.Configure(content, name);
@@ -27,7 +28,7 @@ public class TooltipSystem : MonoBehaviour
     public static void HideNPC()
     {
         current.tooltipNPC.gameObject.SetActive(false);
-    }
+    } */
 
     public static void ShowCard(Sprite portrait, string content, List<CardTrait> traits, string name)
     {

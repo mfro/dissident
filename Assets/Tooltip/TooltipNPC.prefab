@@ -30,7 +30,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5412110946411442887}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &2398383963550398864
 SpriteRenderer:
@@ -84,7 +84,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &5412110946178306808
+--- !u!1 &4044485804516437116
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -92,8 +92,56 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5412110946178306809}
-  - component: {fileID: 5412110946178306814}
+  - component: {fileID: 1250895519503144408}
+  - component: {fileID: 5490018223640170378}
+  m_Layer: 0
+  m_Name: Traits
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1250895519503144408
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044485804516437116}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5412110946411442887}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5490018223640170378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4044485804516437116}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _text: 
+  font: {fileID: 0}
+  alignment: 0
+  MaxWidth: 0
+--- !u!1 &4483529624273333153
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1756359623342734827}
+  - component: {fileID: 2754054702127865399}
   m_Layer: 0
   m_Name: Contents
   m_TagString: Untagged
@@ -101,36 +149,37 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5412110946178306809
+--- !u!4 &1756359623342734827
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5412110946178306808}
+  m_GameObject: {fileID: 4483529624273333153}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -2, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5412110946411442887}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5412110946178306814
+--- !u!114 &2754054702127865399
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5412110946178306808}
+  m_GameObject: {fileID: 4483529624273333153}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _text: A Dumb Person
-  font: {fileID: 2800000, guid: 23c17043ef92b714aac50968505c9e6e, type: 3}
-  alignment: 1
+  _text: 
+  font: {fileID: 0}
+  alignment: 0
+  MaxWidth: 0
 --- !u!1 &5412110946411442886
 GameObject:
   m_ObjectHideFlags: 0
@@ -162,8 +211,9 @@ Transform:
   m_Children:
   - {fileID: 5412110946612855948}
   - {fileID: 5412110947758446471}
-  - {fileID: 5412110946178306809}
   - {fileID: 8408900758701578398}
+  - {fileID: 1756359623342734827}
+  - {fileID: 1250895519503144408}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -181,8 +231,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portraitRenderer: {fileID: 5412110946612855949}
   nameText: {fileID: 5412110947758446468}
-  contentsText: {fileID: 5412110946178306814}
-  traitsText: {fileID: 0}
+  contentsText: {fileID: 2754054702127865399}
+  traitsText: {fileID: 5490018223640170378}
 --- !u!1 &5412110946612855951
 GameObject:
   m_ObjectHideFlags: 0
@@ -257,7 +307,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1fa1a1ecfc7ca794ca34c382f3bdddb8, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -265,7 +315,7 @@ SpriteRenderer:
   m_Size: {x: 2, y: 2}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &7562790964615242938
@@ -330,3 +380,4 @@ MonoBehaviour:
   _text: Frederick Stephens
   font: {fileID: 2800000, guid: 23c17043ef92b714aac50968505c9e6e, type: 3}
   alignment: 1
+  MaxWidth: 0

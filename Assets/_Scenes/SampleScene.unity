@@ -527,8 +527,19 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1604099741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2180122775489578593, guid: 7dc7b42c58dff2a46b9a21067569dab6, type: 3}
+  m_PrefabInstance: {fileID: 6411354801048115071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1714478361
 GameObject:
   m_ObjectHideFlags: 0
@@ -611,8 +622,19 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1829588118 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2180122776577213086, guid: 7dc7b42c58dff2a46b9a21067569dab6, type: 3}
+  m_PrefabInstance: {fileID: 6411354801048115071}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42a3355cadca2854f9ff6869799663e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1884450826
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -951,7 +973,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &2114934109 stripped
 MonoBehaviour:
@@ -1243,6 +1265,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6411354802437129098, guid: 7dc7b42c58dff2a46b9a21067569dab6, type: 3}
+      propertyPath: livesText
+      value: 
+      objectReference: {fileID: 1829588118}
+    - target: {fileID: 6411354802437129098, guid: 7dc7b42c58dff2a46b9a21067569dab6, type: 3}
+      propertyPath: scoreText
+      value: 
+      objectReference: {fileID: 1604099741}
     - target: {fileID: 6411354802437129099, guid: 7dc7b42c58dff2a46b9a21067569dab6, type: 3}
       propertyPath: m_Name
       value: ScoreLifeSystem

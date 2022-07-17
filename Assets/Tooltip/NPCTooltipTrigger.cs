@@ -16,15 +16,21 @@ public class NPCTooltipTrigger : MonoBehaviour
 
     private bool stillHovering = false;
 
+    NPCTooltipSystem mySystem;
+
+    private void Awake()
+    {
+        mySystem = FindObjectOfType<NPCTooltipSystem>();
+    }
     IEnumerator DelayedShow()
     {
         yield return new WaitForSeconds(awakeDelay);
-        if (stillHovering) TooltipSystem.ShowNPC(contentString, nameString);
+        if (stillHovering) mySystem.ShowNPC(contentString, nameString);
     }
 
     private void Hide()
     {
-        TooltipSystem.HideNPC();
+        mySystem.HideNPC();
     }
 
     public void OnMouseEnter()

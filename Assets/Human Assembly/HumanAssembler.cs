@@ -143,5 +143,6 @@ public class HumanAssembler : MonoBehaviour
             Start();
             rerandomize = false;
         }
+        //transform.position = new Vector3(7.5f, 1, 0);
     }
 }

@@ -11,6 +11,9 @@ public class HumanAssemblerAssembler : MonoBehaviour
     bool male;
     string myName;
 
+    TooltipSystem theSystem;
+    NPCTooltipTrigger myTrigger;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,6 +21,9 @@ public class HumanAssemblerAssembler : MonoBehaviour
         Instantiate(male ? malePrefab : femalePrefab, transform);
         myName = GenerateName();
         nameObject.text = myName;
+
+        theSystem = FindObjectOfType<TooltipSystem>();
+        myTrigger = GetComponent<NPCTooltipTrigger>();
     }
 
     string GenerateName()
