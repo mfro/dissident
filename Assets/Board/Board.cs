@@ -36,6 +36,8 @@ public class Board : MonoBehaviour
 
   public int level;
 
+  private bool[] clearRows;
+
   public static (System.Action<Board>, System.Action<Board>)[] levels = {
     (board => {
       board.CheckpointLength = 1;
@@ -130,6 +132,8 @@ public class Board : MonoBehaviour
 
     var done = new StepState[Width, LineLength + CheckpointLength];
 
+    clearRows = rowClickAreas.Select(r => false).ToArray();
+
     for (int y = 0; y < LineLength + CheckpointLength; ++y)
     {
       for (int x = 0; x < Width; ++x)
@@ -138,6 +142,19 @@ public class Board : MonoBehaviour
       }
     }
 
+    for (int y = 0; y < LineLength + CheckpointLength; ++y)
+    {
+      if (clearRows[y])
+      {
+        for (int x = 0; x < Width; ++x)
+        {
+          if (cards[x, y] && !cards[x, y].Has(CardTrait.Police))
+          {
+            DestroyCard(x, y, cards[x, y], x, y);
+          }
+        }
+      }
+    }
 
     for (int x = 0; x < Width; ++x)
     {
@@ -288,11 +305,21 @@ public class Board : MonoBehaviour
     }
     else if (stand.Has(CardTrait.Police) && enter.Has(CardTrait.Document))
     {
+      if (enter.Has(CardTrait.Suspicious))
+      {
+        clearRows[toY] = true;
+      }
+
       DestroyCard(fromX, fromY, enter, toX, toY);
       return true;
     }
     else if (enter.Has(CardTrait.Police) && stand.Has(CardTrait.Document))
     {
+      if (stand.Has(CardTrait.Suspicious))
+      {
+        clearRows[toY] = true;
+      }
+
       DestroyCard(toX, toY, stand, toX, toY);
       MoveCard(fromX, fromY, enter, toX, toY);
       return true;
