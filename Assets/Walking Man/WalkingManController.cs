@@ -7,6 +7,8 @@ public class WalkingManController : MonoBehaviour
     public float movementSpeed = 10f;
     public Vector3 direction = new Vector3(0, 1, 0);
     bool moving = false;
+    public float[] yStoppingPositions;
+    int positionInYPoints = 0;
 
     Animator _anim;
 
@@ -22,7 +24,15 @@ public class WalkingManController : MonoBehaviour
         if (moving)
         {
             transform.position += direction * movementSpeed * Time.deltaTime;
+            if (transform.position.y >= yStoppingPositions[positionInYPoints]) { SetWalking(false); }
         }
+
+    }
+
+    public void WalkForward()
+    {
+        positionInYPoints++;
+        SetWalking(true);
     }
 
     public void SetWalking(bool walking)

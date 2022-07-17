@@ -5,7 +5,6 @@ using UnityEngine;
 public class PeopleManager : MonoBehaviour
 {
 
-    [SerializeField] private float moveDuration;
     private List<GameObject> allPeople;
 
     [SerializeField] private GameObject manPrefab;
@@ -30,7 +29,7 @@ public class PeopleManager : MonoBehaviour
         stillWalking = true;
 
         SpawnPerson();
-        SetAllWalking(true);
+        StartAllWalking();
     }
 
     public void SpawnPerson()
@@ -39,39 +38,18 @@ public class PeopleManager : MonoBehaviour
         allPeople.Add(man);
     }
 
-    void SetAllWalking(bool state)
+    void StartAllWalking()
     {
         foreach (GameObject man in allPeople)
         {
-            man.GetComponent<WalkingManController>().SetWalking(state);
+            man.GetComponent<WalkingManController>().WalkForward();
         }
     }
-
-    private void StartWalking()
-    {
-        SetAllWalking(true);
-        StartCoroutine(StopWalking());
-        stillWalking = !stillWalking;
-    }
-
-    private IEnumerator StopWalking()
-    {
-        yield return new WaitForSeconds(moveDuration);
-        SetAllWalking(false);
-    }
-
 
 
     // Update is called once per frame
     void Update()
     {
-        if (stillWalking)
-        {
-            if (movingStartTime + moveDuration <= Time.time)
-            {
-                stillWalking = false;
-                SetAllWalking(false);
-            }
-        }
+        
     }
 }
