@@ -27,6 +27,8 @@ public class GameManager : MonoBehaviour
     TextAsset femaleNameFile;
     [SerializeField]
     TextAsset lastNameFile;
+    [SerializeField]
+    TextAsset flavorFile;
 
     [HideInInspector]
     public string[] maleNames;
@@ -34,6 +36,8 @@ public class GameManager : MonoBehaviour
     public string[] femaleNames;
     [HideInInspector]
     public string[] lastNames;
+    [HideInInspector]
+    public string[] flavors;
 
     public bool playGuardAnnouncement = false;
 
@@ -60,6 +64,7 @@ public class GameManager : MonoBehaviour
         maleNames = ParseFile(maleNameFile);
         femaleNames = ParseFile(femaleNameFile);
         lastNames = ParseFile(lastNameFile);
+        flavors = ParseFile(flavorFile);
         musicMaker = this.GetComponent<AudioSource>();
         ambianceMaker = Camera.main.GetComponent<AudioSource>();
     }
