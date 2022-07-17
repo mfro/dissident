@@ -37,7 +37,7 @@ public class MenuNavigator : MonoBehaviour
 
     public void Play()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
         GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
     }
 

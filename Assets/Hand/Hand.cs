@@ -13,6 +13,7 @@ public class Hand : MonoBehaviour
 
   public Board board;
   public Deck deck;
+  public int maxCards = 5;
 
   public ClickArea deckClick;
 
@@ -36,6 +37,7 @@ public class Hand : MonoBehaviour
 
   public void Draw1()
   {
+    if (cards.Count >= maxCards) return;
     var name = deck.DrawCard();
     if (name == null) return;
 
