@@ -66,6 +66,7 @@ public class PauseNavigator : MonoBehaviour
     public void OnQuit()
     {
         GameManager.gm.PlaySound(GameManager.SoundEffects.cardInspect);
+        Time.timeScale = 1;
         SceneManager.LoadScene(0);
     }
 
